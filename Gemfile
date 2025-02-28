@@ -1,47 +1,47 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Core dependencies
-gem "rails", "~> 8.0.1"
-gem "pg", "~> 1.1"
-gem "puma", ">= 5.0"
+gem 'pg', '~> 1.1'
+gem 'puma', '>= 5.0'
+gem 'rails', '~> 8.0.1'
 
 # Frontend & Hotwire
-gem "importmap-rails"
-gem "turbo-rails"
-gem "stimulus-rails"
-gem "propshaft"
-gem "jbuilder"
+gem 'importmap-rails'
+gem 'jbuilder'
+gem 'propshaft'
+gem 'stimulus-rails'
+gem 'turbo-rails'
 
 # Caching, background jobs, WebSockets
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
+gem 'solid_cable'
+gem 'solid_cache'
+gem 'solid_queue'
 
 # Performance & optimization
-gem "bootsnap", require: false
-gem "tzinfo-data", platforms: %i[windows jruby]
+gem 'bootsnap', require: false
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
 # DevOps & deployment
-gem "kamal", require: false
-gem "thruster", require: false
+gem 'kamal', require: false
+gem 'thruster', require: false
 
 group :development, :test do
   # Debugging & security
-  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
-  gem "brakeman", require: false
+  gem 'brakeman', require: false
+  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 
   # Code quality & environment management
+  gem 'dotenv-rails'
   gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-factory_bot', require: false
-  gem 'rubocop-capybara', require: false
-  gem "dotenv-rails"
 end
 
 group :development do
   # Development tools
-  gem "web-console"
+  gem 'web-console'
 end
