@@ -31,7 +31,6 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Code quality & environment management
-  gem "rubocop-rails-omakase", require: false
   gem "dotenv-rails"
 end
 
