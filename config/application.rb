@@ -21,6 +21,7 @@ require 'action_cable/engine'
 Bundler.require(*Rails.groups)
 
 module Elevate
+  # Main application configuration class for Rails settings.
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
