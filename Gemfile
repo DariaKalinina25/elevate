@@ -41,6 +41,11 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
+
+  # Testing
+  gem 'rspec-rails', '~> 7.1'
+  gem 'capybara'
+  gem 'factory_bot_rails'
 end
 
 group :development do
