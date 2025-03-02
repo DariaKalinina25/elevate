@@ -28,12 +28,11 @@ RSpec.configure do |config|
   Capybara.default_driver = :rack_test
   Capybara.default_max_wait_time = 5
 
-  config.before(:each, js: true) do
+  config.before(:each, :js) do
     Capybara.current_driver = :selenium_chrome_headless
   end
 
-  config.after(:each, js: true) do
+  config.after(:each, :js) do
     Capybara.use_default_driver
   end
 end
-
