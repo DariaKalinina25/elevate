@@ -7,6 +7,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.0.1'
 gem 'devise'
+gem 'slim-rails'
 
 # Frontend & Hotwire
 gem 'importmap-rails'
@@ -42,6 +43,7 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-slim', require: false
 
   # Testing
   gem 'capybara'

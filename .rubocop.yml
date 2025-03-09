@@ -2,11 +2,12 @@ plugins:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-factory_bot
 
 require:
-  - rubocop-factory_bot
   - rubocop-capybara
   - rubocop-rspec_rails
+  - rubocop-slim
 
 AllCops:
   NewCops: enable

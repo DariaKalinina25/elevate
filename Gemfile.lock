@@ -320,8 +320,22 @@ GEM
     rubocop-rspec_rails (2.30.0)
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
+    rubocop-slim (0.2.8)
+      rubocop (~> 1.45)
+      slimi (~> 0.7)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    slim (5.2.1)
+      temple (~> 0.10.0)
+      tilt (>= 2.1.0)
+    slim-rails (3.7.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 6.0, != 5.0.0)
+    slimi (0.7.6)
+      temple
+      thor
+      tilt
     solid_cable (3.0.7)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -348,11 +362,13 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.5)
+    temple (0.10.3)
     thor (1.3.2)
     thruster (0.1.11)
     thruster (0.1.11-aarch64-linux)
     thruster (0.1.11-arm64-darwin)
     thruster (0.1.11-x86_64-linux)
+    tilt (2.6.0)
     timeout (0.4.3)
     turbo-rails (2.0.13)
       actionpack (>= 7.1.0)
@@ -413,6 +429,8 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-rspec_rails
+  rubocop-slim
+  slim-rails
   solid_cable
   solid_cache
   solid_queue
