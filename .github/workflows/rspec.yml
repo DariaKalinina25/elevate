@@ -51,5 +51,8 @@ jobs:
       - name: Set up database
         run: bin/rails db:create db:schema:load --trace
 
+      - name: Reset database
+        run: bin/rails db:drop db:create db:schema:load --trace
+
       - name: Run RSpec
         run: bundle exec rspec
