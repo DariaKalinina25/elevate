@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This migration creates the users table with Devise authentication fields.
 class DeviseCreateUsers < ActiveRecord::Migration[8.0]
   def change
     create_table :users do |t|
