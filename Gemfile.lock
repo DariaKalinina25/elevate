@@ -269,6 +269,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    rexml (3.4.1)
     rspec-core (3.13.3)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.3)
@@ -332,6 +333,10 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (>= 3.0, < 6.0, != 5.0.0)
+    slim_lint (0.32.2)
+      rexml (~> 3.2)
+      rubocop (>= 1.0, < 2.0)
+      slim (>= 3.0, < 6.0)
     slimi (0.7.6)
       temple
       thor
@@ -431,6 +436,7 @@ DEPENDENCIES
   rubocop-rspec_rails
   rubocop-slim
   slim-rails
+  slim_lint
   solid_cable
   solid_cache
   solid_queue

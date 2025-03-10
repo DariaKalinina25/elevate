@@ -44,6 +44,7 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
   gem 'rubocop-slim', require: false
+  gem 'slim_lint', require: false
 
   # Testing
   gem 'capybara'
