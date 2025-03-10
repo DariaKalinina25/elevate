@@ -30,4 +30,4 @@ jobs:
         run: bundle install
 
       - name: Run Slim Lint
-        run: bundle exec slim-lint .
+        run: bundle exec slim-lint app/views
