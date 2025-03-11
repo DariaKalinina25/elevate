@@ -34,8 +34,8 @@ RSpec.configure do |config|
     Capybara.use_default_driver
   end
 
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
+  Shoulda::Matchers.configure do |matcher_config|
+    matcher_config.integrate do |with|
       with.test_framework :rspec
       with.library :rails
     end
