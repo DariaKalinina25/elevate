@@ -3,10 +3,10 @@ plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-factory_bot
-
-require:
   - rubocop-capybara
   - rubocop-rspec_rails
+
+require:
   - rubocop-slim
 
 AllCops:
