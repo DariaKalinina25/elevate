@@ -51,6 +51,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 7.1'
   gem 'shoulda-matchers'
+  gem 'cuprite'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do
