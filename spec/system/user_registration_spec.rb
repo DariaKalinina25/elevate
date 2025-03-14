@@ -16,11 +16,11 @@ RSpec.describe 'User Registration' do
     click_link_or_button 'Sign up'
   end
 
-    shared_examples 'stays on registration page' do
-      it 'stays on the registration page', :js do
-        expect(page).to have_current_path(new_user_registration_path, ignore_query: true)
-      end
+  shared_examples 'stays on registration page' do
+    it 'stays on the registration page', :js do
+      expect(page).to have_current_path(new_user_registration_path, ignore_query: true)
     end
+  end
 
   context 'when user submits valid data' do
     before { fill_registration_form(user.email, user.password, user.password) }
