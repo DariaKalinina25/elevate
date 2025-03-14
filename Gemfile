@@ -48,11 +48,11 @@ group :development, :test do
 
   # Testing
   gem 'capybara'
+  gem 'cuprite'
+  gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 7.1'
   gem 'shoulda-matchers'
-  gem 'cuprite'
-  gem 'database_cleaner-active_record'
 end
 
 group :development do
