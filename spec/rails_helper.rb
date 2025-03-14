@@ -37,7 +37,7 @@ RSpec.configure do |config|
     driven_by :cuprite
   end
 
-  Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+  Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
