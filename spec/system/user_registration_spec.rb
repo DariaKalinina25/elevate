@@ -29,27 +29,33 @@ RSpec.describe 'User Registration' do
       expect(page).to have_content 'Welcome! You have signed up successfully.'
     end
 
-    # Add when root page will exist
+    # Uncomment when root page is ready
     # it 'redirects to the homepage' do
     #   expect(page).to have_current_path(root_path)
     # end
   end
 
-  context 'when user submits empty fields' do
-    before { fill_registration_form('', '', '') }
+  context 'when email is empty' do
+    before { fill_registration_form('', user.password, user.password) }
 
     include_examples 'stays on registration page'
 
-    it 'shows an error message about blank email' do
+    it 'shows email blank error' do
       expect(page).to have_content "Email can't be blank"
     end
+  end
 
-    it 'shows an error message about blank password' do
+  context 'when password is empty' do
+    before { fill_registration_form(user.email, '', '') }
+
+    include_examples 'stays on registration page'
+
+    it 'shows password blank error' do
       expect(page).to have_content "Password can't be blank"
     end
   end
 
-  context 'when user uses an already taken email' do
+  context 'when email is already taken' do
     before { fill_registration_form(existing_user.email, existing_user.password, existing_user.password) }
 
     include_examples 'stays on registration page'
@@ -59,26 +65,32 @@ RSpec.describe 'User Registration' do
     end
   end
 
-  context 'when user submits an invalid email' do
+  context 'when email is invalid' do
     before { fill_registration_form('invalid_email', user.password, user.password) }
 
     include_examples 'stays on registration page'
 
-    it 'shows an error message about invalid email' do
+    it 'shows email invalid error' do
       expect(page).to have_content 'Email is invalid'
     end
   end
 
-  context 'when short password or wrong confirmation' do
-    before { fill_registration_form(user.email, '123', user.password) }
+  context 'when password confirmation does not match' do
+    before { fill_registration_form(user.email, user.password, 'invalid_confirmation') }
 
     include_examples 'stays on registration page'
 
-    it 'shows password confirmation mismatch message' do
+    it 'shows password confirmation mismatch error' do
       expect(page).to have_content "Password confirmation doesn't match Password"
     end
+  end
 
-    it 'shows minimum password length message' do
+  context 'when password is too short' do
+    before { fill_registration_form(user.email, 'short', 'short') }
+
+    include_examples 'stays on registration page'
+
+    it 'shows password too short error' do
       expect(page).to have_content 'Password is too short (minimum is 6 characters)'
     end
   end
