@@ -16,6 +16,8 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
@@ -36,8 +38,6 @@ RSpec.configure do |config|
   config.before(:each, :js, type: :system) do
     driven_by :cuprite
   end
-
-  Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
