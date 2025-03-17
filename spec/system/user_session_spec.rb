@@ -23,13 +23,13 @@ RSpec.describe 'User session' do
   context 'when user submits valid data' do
     before { login_as_user(user.email, user.password) }
 
+    it 'redirects to the homepage' do
+      expect(page).to have_current_path(root_path)
+     end
+
     it 'shows a message about successful login' do
       expect(page).to have_content 'Signed in successfully'
     end
-
-    # it 'redirects to the homepage' do
-    #   expect(page).to have_current_path(root_path)
-    # end
   end
 
   context 'when email is empty' do
