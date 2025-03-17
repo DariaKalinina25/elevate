@@ -18,7 +18,7 @@ RSpec.describe 'User Registration' do
 
   shared_examples 'user stays on sign-up form' do
     it 'does not leave the sign-up form' do
-      expect(page).to have_field("user[password_confirmation]")
+      expect(page).to have_field('user[password_confirmation]')
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe 'User Registration' do
     before { register_as_user(user.email, user.password, user.password) }
 
     it 'redirects to the homepage' do
-     expect(page).to have_current_path(root_path)
+      expect(page).to have_current_path(root_path)
     end
 
     it 'shows successful registration message' do

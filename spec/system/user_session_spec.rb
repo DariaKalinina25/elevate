@@ -25,7 +25,7 @@ RSpec.describe 'User session' do
 
     it 'redirects to the homepage' do
       expect(page).to have_current_path(root_path)
-     end
+    end
 
     it 'shows a message about successful login' do
       expect(page).to have_content 'Signed in successfully'
