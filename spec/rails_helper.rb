@@ -4,6 +4,7 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
+
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -15,24 +16,46 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
-
-  config.parallelize(workers: :number_of_processors)
-
-  config.use_transactional_fixtures = true
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  Capybara.default_driver = :rack_test
-  Capybara.default_max_wait_time = 5
-
-  config.before(:each, :js) do
-    Capybara.current_driver = :selenium_chrome_headless
+  Shoulda::Matchers.configure do |matcher_config|
+    matcher_config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
   end
 
-  config.after(:each, :js) do
-    Capybara.use_default_driver
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, :js, type: :system) do
+    driven_by :cuprite
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :js, type: :system) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
   end
 end

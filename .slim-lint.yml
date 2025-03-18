@@ -1,0 +1,52 @@
+linters:
+  LineLength:
+    max: 120
+
+  Indentation:
+    character: ' '
+    width: 2
+
+  TrailingSpaces:
+    enabled: true
+
+  EmptyLines:
+    max: 1
+
+  FileName:
+    enabled: true
+
+  Syntax:
+    enabled: true
+
+  InlineScript:
+    enabled: true
+    max_statements: 1
+
+  ControlStatementSpacing:
+    enabled: true
+    severity: warning
+
+  AttributeSortOrder:
+    enabled: true
+    order:
+      - id
+      - class
+      - name
+      - data
+      - type
+      - href
+      - src
+      - alt
+      - title
+      - role
+      - aria
+    ignore_unspecified: true
+
+  NestedScript:
+    enabled: true
+
+  SpaceInsideParens:
+    enabled: true
+
+  RuboCop:
+    enabled: false

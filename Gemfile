@@ -3,9 +3,11 @@
 source 'https://rubygems.org'
 
 # Core dependencies
+gem 'devise'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.0.1'
+gem 'slim-rails'
 
 # Frontend & Hotwire
 gem 'importmap-rails'
@@ -41,11 +43,16 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-slim', require: false
+  gem 'slim_lint', require: false
 
   # Testing
   gem 'capybara'
+  gem 'cuprite'
+  gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 7.1'
+  gem 'shoulda-matchers'
 end
 
 group :development do
