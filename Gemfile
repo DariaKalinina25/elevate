@@ -15,6 +15,8 @@ gem 'jbuilder'
 gem 'propshaft'
 gem 'stimulus-rails'
 gem 'turbo-rails'
+gem 'dartsass-rails'
+gem 'bootstrap', '~> 5.3', '>= 5.3.3'
 
 # Caching, background jobs, WebSockets
 gem 'solid_cable'
