@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'devise'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 8.0.1'
+gem 'rails', '~> 8.0.2'
 gem 'slim-rails'
 
 # Frontend & Hotwire
