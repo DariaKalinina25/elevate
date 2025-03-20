@@ -1,0 +1,21 @@
+nav.navbar.navbar-expand-lg.navbar-dark
+  .container.d-flex.align-items-baseline
+    = link_to 'Elevate', root_path, class: 'navbar-brand text-white fw-bold fs-4'
+
+    button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      span.navbar-toggler-icon
+
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav.me-auto
+        li.nav-item = link_to 'Planner', '#', class: 'nav-link py-0'
+        li.nav-item = link_to 'Notes', '#', class: 'nav-link py-0'
+        li.nav-item = link_to 'Tracker', '#', class: 'nav-link py-0'
+        li.nav-item = link_to 'Timer', '#', class: 'nav-link py-0'
+        li.nav-item = link_to 'Statistics', '#', class: 'nav-link py-0'
+        li.nav-item = link_to 'Calm', '#', class: 'nav-link py-0'
+
+      ul.navbar-nav
+        - if user_signed_in?
+          li.nav-item = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link py-0'
+        - else
+          li.nav-item = link_to 'Login', new_user_session_path, class: 'nav-link py-0'
