@@ -10,13 +10,13 @@ gem 'rails', '~> 8.0.1'
 gem 'slim-rails'
 
 # Frontend & Hotwire
+gem 'bootstrap', '~> 5.3', '>= 5.3.3'
+gem 'dartsass-rails'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'propshaft'
 gem 'stimulus-rails'
 gem 'turbo-rails'
-gem 'dartsass-rails'
-gem 'bootstrap', '~> 5.3', '>= 5.3.3'
 
 # Caching, background jobs, WebSockets
 gem 'solid_cable'
