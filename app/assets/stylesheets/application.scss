@@ -1,1 +1,5 @@
-@import "bootstrap";
+@use "bootstrap";
+
+@use "base/globals";
+
+@use "components/navbar";
