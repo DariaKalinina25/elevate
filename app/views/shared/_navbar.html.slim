@@ -16,10 +16,10 @@ nav.navbar.navbar-expand-lg.navbar-dark
 
       ul.navbar-nav
         - if user_signed_in?
-        li.nav-item = button_to t('devise.logout'),
-          destroy_user_session_path,
-          method: :delete,
-          class: 'nav-link btn btn-link py-0',
-          form: { class: 'd-inline' }
+          li.nav-item = button_to t('devise.sign_out'),
+            destroy_user_session_path,
+            method: :delete,
+            class: 'nav-link btn btn-link py-0',
+            form: { class: 'd-inline' }
         - else
           li.nav-item = link_to t('devise.login'), new_user_session_path, class: 'nav-link py-0'
