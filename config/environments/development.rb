@@ -2,7 +2,7 @@
 
 require 'active_support/core_ext/integer/time'
 
-Rails.application.configure do
+Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.
@@ -73,4 +73,10 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.assets.debug = true
+
+  config.assets.compile = true
+
+  config.assets.check_precompiled_asset = false
 end

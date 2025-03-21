@@ -1,0 +1,17 @@
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.content-box {
+  width: 80%;
+  max-width: 900px;
+  min-height: 400px;
+  background-color: #392b26;
+  border-radius: 40px;
+  padding: 40px;
+  text-align: center;
+}

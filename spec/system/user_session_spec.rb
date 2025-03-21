@@ -70,5 +70,20 @@ RSpec.describe 'User session' do
     it 'shows invalid email or password error' do
       expect(page).to have_content 'Invalid Email or password.'
     end
+
+    context 'when user logs out after login' do
+      before do
+        login_as_user(user.email, user.password)
+        click_button 'Sign out'
+      end
+
+      it 'redirects to the homepage' do
+        expect(page).to have_current_path(root_path)
+      end
+
+      it 'shows logout success message' do
+        expect(page).to have_content 'Signed out successfully'
+      end
+    end
   end
 end

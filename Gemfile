@@ -10,6 +10,8 @@ gem 'rails', '~> 8.0.1'
 gem 'slim-rails'
 
 # Frontend & Hotwire
+gem 'bootstrap', '~> 5.3', '>= 5.3.3'
+gem 'dartsass-rails'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'propshaft'
