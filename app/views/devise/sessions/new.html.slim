@@ -1,22 +1,25 @@
-h2 Log in
+.authentication-background
+  .center-container
+    .box-vertical
+      h4.fw-bold.mb-5
+        = t('devise.login')
 
-= form_for resource, as: resource_name, url: session_path(resource_name) do |f|
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true, autocomplete: 'email'
+      = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'text-start' } do |f|
+          
+        .mb-4.input-wrapper
+          = f.label :email, class: 'form-label'
+          = f.email_field :email, class: 'form-control', autofocus: true, autocomplete: 'email'
 
-  .field
-    = f.label :password
-    br
-    = f.password_field :password, autocomplete: 'current-password'
+        .mb-5.input-wrapper
+          = f.label :password, class: 'form-label'
+          = f.password_field :password, class: 'form-control', autocomplete: 'current-password'
 
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
+        - if devise_mapping.rememberable?
+          .mb-4.d-flex.justify-content-center.align-items-center.checkbox-wrapper
+            = f.check_box :remember_me, id: 'remember_me'
+            = f.label :remember_me, for: 'remember_me', class: 'ms-2'
 
-  .actions
-    = f.submit 'Log in'
+        .d-grid.mb-4.rounded-button
+          = f.submit t('devise.login'), class: 'btn btn-primary btn-block'
 
-= render 'devise/shared/links'
+      = render 'devise/shared/links'
