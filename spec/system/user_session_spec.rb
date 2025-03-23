@@ -11,7 +11,7 @@ RSpec.describe 'User session' do
     fill_in 'Email', with: email
     fill_in 'Password', with: password
 
-    click_button 'Log in'
+    click_button 'Login'
   end
 
   shared_examples 'remains on the login page' do
