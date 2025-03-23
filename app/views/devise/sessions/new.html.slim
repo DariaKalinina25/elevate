@@ -4,8 +4,11 @@
       h4.fw-bold.mb-5
         = t('devise.login')
 
-      = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'text-start' } do |f|
-          
+      = form_for resource,
+        as: resource_name,
+        url: session_path(resource_name),
+        html: { class: 'text-start' } do |f|
+
         .mb-4.input-wrapper
           = f.label :email, class: 'form-label'
           = f.email_field :email, class: 'form-control', autofocus: true, autocomplete: 'email'
