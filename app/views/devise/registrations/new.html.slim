@@ -4,22 +4,22 @@
       h4.fw-bold.mb-5
         = t('devise.sign_up')
 
-      = form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: "text-start" } do |f|
+      = form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: 'text-start' } do |f|
         = render 'devise/shared/error_messages', resource: resource
 
         .mb-4.input-wrapper
-          = f.label :email, class: "form-label"
-          = f.email_field :email, class: "form-control", autofocus: true, autocomplete: 'email'
+          = f.label :email, class: 'form-label'
+          = f.email_field :email, class: 'form-control', autofocus: true, autocomplete: 'email'
 
         .mb-4.input-wrapper
-          = f.label :password, class: "form-label"
-          = f.password_field :password, class: "form-control", autocomplete: 'new-password'
+          = f.label :password, class: 'form-label'
+          = f.password_field :password, class: 'form-control', autocomplete: 'new-password'
 
         .mb-5.input-wrapper
-          = f.label :password_confirmation, class: "form-label"
-          = f.password_field :password_confirmation, class: "form-control", autocomplete: 'new-password'
+          = f.label :password_confirmation, class: 'form-label'
+          = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'new-password'
 
         .d-grid.mb-4.rounded-button
-          = f.submit t('devise.sign_up'), class: "btn btn-primary btn-block"
+          = f.submit t('devise.sign_up'), class: 'btn btn-primary btn-block'
 
       = render 'devise/shared/links'
