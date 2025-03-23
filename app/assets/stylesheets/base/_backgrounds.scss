@@ -1,0 +1,17 @@
+@mixin blurred-background {
+  content: "";
+  position: fixed;
+  inset: 0;
+  filter: blur(5px);
+  z-index: -1;
+}
+
+.home-background::before {
+  @include blurred-background;
+  background: url('/backgrounds/home_page.jpg') center/cover no-repeat;
+}
+
+.authentication-background::before {
+  @include blurred-background;
+  background: url('/backgrounds/authentication.jpg') center/cover no-repeat;
+}
