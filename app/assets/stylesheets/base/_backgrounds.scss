@@ -8,7 +8,7 @@
 
 .home-background::before {
   @include blurred-background;
-  background: url('/backgrounds/home_page.jpg') center/cover no-repeat;
+  background: url('/backgrounds/home.jpg') center/cover no-repeat;
 }
 
 .authentication-background::before {
