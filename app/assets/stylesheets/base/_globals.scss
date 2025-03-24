@@ -4,3 +4,12 @@ body {
   color: white;
   background-color: black;
 }
+
+a {
+  color: #f0d6b8;
+  text-decoration: none;
+
+  &:hover {
+    color: white;
+  }
+}

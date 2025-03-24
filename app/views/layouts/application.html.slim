@@ -24,9 +24,10 @@ html
   body
     = render 'shared/navbar'
 
-    - if notice
-      p.notice = notice
     - if alert
-      p.alert = alert
+      .custom-alert.fixed-message = alert
+
+    - if notice
+      .custom-notice.fixed-message = notice
 
     = yield

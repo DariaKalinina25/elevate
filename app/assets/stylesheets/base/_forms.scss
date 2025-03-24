@@ -1,0 +1,39 @@
+.input-wrapper {
+  max-width: 300px;
+  margin: 0 auto;
+
+  .form-control {
+    border-radius: 40px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+
+    &:focus {
+      border-color: #ca7309;
+      box-shadow: 0 0 0 0.2rem rgba(202, 115, 9, 0.25);
+    }
+  }
+}
+
+.rounded-button {
+  max-width: 150px;
+  margin: 0 auto;
+
+  .btn {
+    width: 100%;
+    border-radius: 40px;
+    background-color: #ca7309;
+    border: none;
+    
+    &:hover {
+      background-color: #b96508;
+    }
+  }
+}
+
+.checkbox-wrapper {
+  input[type="checkbox"] {
+    accent-color: #ca7309;
+    width: 20px;
+    height: 20px;
+  }
+}
