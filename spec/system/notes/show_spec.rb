@@ -73,4 +73,24 @@ RSpec.describe 'Note show' do
       expect(page).to have_link('Delete', href: note_path(note))
     end
   end
+
+  context 'when the user wants to delete a note' do
+    before do
+      login_as(user)
+      visit note_path(note)
+      click_link 'Delete'
+    end
+
+    it 'redirects to index after deletion' do
+      expect(page).to have_current_path(notes_path, ignore_query: true)
+    end
+
+    it 'shows success message after deletion' do
+      expect(page).to have_content('Note was successfully deleted')
+    end
+
+    it 'no longer shows the deleted note' do
+      expect(page).to have_no_content(note.title)
+    end
+  end
 end
