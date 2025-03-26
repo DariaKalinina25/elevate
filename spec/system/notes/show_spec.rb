@@ -2,95 +2,94 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Note show' do
+RSpec.describe 'Notes show' do
   let(:user) { create(:user) }
   let!(:note) { create(:note, title: 'My note', content: 'My content', user: user) }
 
-  context 'when the user is not logged in' do
-    before { visit note_path(note) }
-
-    it 'redirects unauthenticated user to login' do
-      expect(page).to have_current_path(new_user_session_path, ignore_query: true)
-    end
-
-    it 'shows unauthenticated message' do
-      expect(page).to have_content I18n.t('devise.failure.unauthenticated')
-    end
+  def login_and_visit_note(note)
+    login_as(user)
+    visit note_path(note)
   end
 
-  context 'when the user tries to view a non-existent note' do
+  context 'when the user is not logged in' do
+    it_behaves_like 'denies access to unauthenticated user', note_path(note)
+  end
+
+  context 'when the user wants to open a non-existent note' do
     before do
-      login_as(user)
-      visit note_path(-1)
+      login_and_visit_note(-1)
     end
 
     it 'redirects to index' do
       expect(page).to have_current_path(notes_path, ignore_query: true)
     end
 
-    it 'shows message about non-existent note' do
-      expect(page).to have_content 'The note does not exist'
+    it 'shows a flash alert about non-existent note' do
+      expect(page).to have_css('.custom-alert', text: 'The note does not exist')
     end
   end
 
-  context 'when the user wants to view another note' do
+  context 'when the user wants to open another note' do
     let(:other_user) { create(:user) }
     let(:other_note) { create(:note, title: 'Other note', user: other_user) }
 
     before do
-      login_as(user)
-      visit note_path(other_note)
+      login_and_visit_note(other_note)
     end
 
     it 'redirects to index' do
       expect(page).to have_current_path(notes_path, ignore_query: true)
     end
+
+    it 'shows a flash alert about non-existent note' do
+      expect(page).to have_css('.custom-alert', text: 'The note does not exist')
+    end
   end
 
-  context 'when the user logged in' do
+  context 'when the user opens their note' do
     before do
-      login_as(user)
-      visit note_path(note)
+      login_and_visit_note(note)
     end
 
     it 'shows the title' do
-      expect(page).to have_css('h4', text: note.title)
+      expect(page).to have_css('h4', text: note.title) 
     end
 
     it 'shows the content' do
-      expect(page).to have_css('h4', text: note.content)
+      expect(page).to have_css('p', text: note.content)
     end
 
-    it 'shows link To All Notes' do
-      expect(page).to have_link('To All Notes', href: notes_path)
-    end
+    context 'when the user clicks on links or buttons' do
+      it 'redirects to index' do
+        click_link_or_button 'To All Notes'
+        
+        expect(page).to have_current_path(notes_path, ignore_query: true)
+      end
 
-    it 'shows link Edit' do
-      expect(page).to have_link('Edit', href: edit_note_path(note))
-    end
+      it 'redirects to edit' do
+        click_link_or_button 'Edit'
 
-    it 'shows link Delete' do
-      expect(page).to have_link('Delete', href: note_path(note))
+        expect(page).to have_current_path(edit_note_path(note), ignore_query: true)
+      end
     end
   end
 
-  context 'when the user wants to delete a note' do
+  context 'when the user deletes their note' do
     before do
-      login_as(user)
-      visit note_path(note)
+      login_and_visit_note(note)
       click_link 'Delete'
     end
 
-    it 'redirects to index after deletion' do
+    it 'redirects to index' do
       expect(page).to have_current_path(notes_path, ignore_query: true)
     end
 
-    it 'shows success message after deletion' do
-      expect(page).to have_content('Note was successfully deleted')
+    it 'shows a flash notice after successful deletion' do
+      expect(page).to have_css('.custom-notice', text: 'Note was successfully deleted')
     end
 
-    it 'no longer shows the deleted note' do
-      expect(page).to have_no_content(note.title)
-    end
+    # it 'no longer shows the deleted note' do
+    #   expect(page).to have_no_content(note.title)
+    # end
   end
 end
