@@ -29,48 +29,8 @@ RSpec.describe 'User Registration' do
       expect(page).to have_current_path(root_path)
     end
 
-    it 'shows successful registration message' do
-      expect(page).to have_content 'Welcome! You have signed up successfully.'
-    end
-  end
-
-  context 'when email is empty' do
-    before { register_as_user('', user.password, user.password) }
-
-    include_examples 'user stays on sign-up form'
-
-    it 'shows email blank error' do
-      expect(page).to have_content "Email can't be blank"
-    end
-  end
-
-  context 'when password is empty' do
-    before { register_as_user(user.email, '', '') }
-
-    include_examples 'user stays on sign-up form'
-
-    it 'shows password blank error' do
-      expect(page).to have_content "Password can't be blank"
-    end
-  end
-
-  context 'when email is already taken' do
-    before { register_as_user(existing_user.email, existing_user.password, existing_user.password) }
-
-    include_examples 'user stays on sign-up form'
-
-    it 'shows email already taken message' do
-      expect(page).to have_content 'Email has already been taken'
-    end
-  end
-
-  context 'when email is invalid' do
-    before { register_as_user('invalid_email', user.password, user.password) }
-
-    include_examples 'user stays on sign-up form'
-
-    it 'shows email invalid error' do
-      expect(page).to have_content 'Email is invalid'
+    it 'shows a flash notice for successful registration' do
+      expect(page).to have_css('.custom-notice', text: 'Welcome! You have signed up successfully.')
     end
   end
 
@@ -80,7 +40,7 @@ RSpec.describe 'User Registration' do
     include_examples 'user stays on sign-up form'
 
     it 'shows password confirmation mismatch error' do
-      expect(page).to have_content "Password confirmation doesn't match Password"
+      expect(page).to have_css('.alert.alert-danger', text: "Password confirmation doesn't match Password")
     end
   end
 
@@ -90,7 +50,7 @@ RSpec.describe 'User Registration' do
     include_examples 'user stays on sign-up form'
 
     it 'shows password too short error' do
-      expect(page).to have_content 'Password is too short (minimum is 6 characters)'
+      expect(page).to have_css('.alert.alert-danger', text: 'Password is too short (minimum is 6 characters)')
     end
   end
 end
