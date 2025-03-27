@@ -52,7 +52,7 @@ RSpec.describe 'Notes show' do
     end
 
     it 'shows the title' do
-      expect(page).to have_css('h4', text: note.title) 
+      expect(page).to have_css('h4', text: note.title)
     end
 
     it 'shows the content' do
@@ -60,13 +60,13 @@ RSpec.describe 'Notes show' do
     end
 
     context 'when the user clicks on links or buttons' do
-      it 'redirects to index' do
+      it 'redirects to index after clicking (To All Notes)' do
         click_link_or_button 'To All Notes'
-        
+
         expect(page).to have_current_path(notes_path, ignore_query: true)
       end
 
-      it 'redirects to edit' do
+      it 'redirects to edit after clicking (Edit)' do
         click_link_or_button 'Edit'
 
         expect(page).to have_current_path(edit_note_path(note), ignore_query: true)
