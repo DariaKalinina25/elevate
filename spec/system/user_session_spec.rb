@@ -20,6 +20,12 @@ RSpec.describe 'User session' do
     end
   end
 
+  shared_examples 'invalid login or email error' do
+    it 'shows flash alert for email and password error' do
+      expect(page).to have_css('.custom-alert', text: 'Invalid Email or password.')
+    end
+  end
+
   context 'when user submits valid data' do
     before { login_as_user(user.email, user.password) }
 
@@ -27,8 +33,8 @@ RSpec.describe 'User session' do
       expect(page).to have_current_path(root_path)
     end
 
-    it 'shows a message about successful login' do
-      expect(page).to have_content 'Signed in successfully'
+    it 'shows a flash notice for successful login' do
+      expect(page).to have_css('.custom-notice', text: 'Signed in successfully')
     end
   end
 
@@ -37,9 +43,7 @@ RSpec.describe 'User session' do
 
     include_examples 'remains on the login page'
 
-    it 'shows invalid email or password error' do
-      expect(page).to have_content 'Invalid Email or password.'
-    end
+    include_examples 'invalid login or email error'
   end
 
   context 'when password is empty' do
@@ -47,9 +51,7 @@ RSpec.describe 'User session' do
 
     include_examples 'remains on the login page'
 
-    it 'shows invalid email or password error' do
-      expect(page).to have_content 'Invalid Email or password.'
-    end
+    include_examples 'invalid login or email error'
   end
 
   context 'when email does not exist in database' do
@@ -57,9 +59,7 @@ RSpec.describe 'User session' do
 
     include_examples 'remains on the login page'
 
-    it 'shows invalid email or password error' do
-      expect(page).to have_content 'Invalid Email or password.'
-    end
+    include_examples 'invalid login or email error'
   end
 
   context 'when the password is not correct' do
@@ -67,23 +67,21 @@ RSpec.describe 'User session' do
 
     include_examples 'remains on the login page'
 
-    it 'shows invalid email or password error' do
-      expect(page).to have_content 'Invalid Email or password.'
+    include_examples 'invalid login or email error'
+  end
+
+  context 'when user logs out after login' do
+    before do
+      login_as_user(user.email, user.password)
+      click_button 'Sign out'
     end
 
-    context 'when user logs out after login' do
-      before do
-        login_as_user(user.email, user.password)
-        click_button 'Sign out'
-      end
+    it 'redirects to the homepage' do
+      expect(page).to have_current_path(root_path)
+    end
 
-      it 'redirects to the homepage' do
-        expect(page).to have_current_path(root_path)
-      end
-
-      it 'shows logout success message' do
-        expect(page).to have_content 'Signed out successfully'
-      end
+    it 'shows a flash notice for successful logout' do
+      expect(page).to have_css('.custom-notice', text: 'Signed out successfully')
     end
   end
 end
