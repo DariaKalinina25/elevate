@@ -18,7 +18,7 @@ RSpec.describe 'Notes create' do
   end
 
   context 'when the user is not logged in' do
-    it_behaves_like 'unauthenticated access', new_note_path
+    it_behaves_like 'denies access to unauthenticated user', new_note_path
   end
 
   context 'when the user left the title blank' do
