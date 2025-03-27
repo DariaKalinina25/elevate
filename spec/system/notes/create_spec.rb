@@ -49,7 +49,7 @@ RSpec.describe 'Notes create' do
     # end
   end
 
-  context 'when the user has entered valid data' do
+  context 'when the user submits valid data' do
     before { create_note(note.title, note.content) }
 
     it 'redirects to show' do
