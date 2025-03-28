@@ -10,7 +10,7 @@ RSpec.describe Note do
       it { is_expected.to validate_length_of(:title).is_at_most(10) }
     end
 
-    context 'when validating password' do
+    context 'when validating content' do
       it { is_expected.to validate_presence_of(:content) }
       it { is_expected.to validate_length_of(:content).is_at_most(700) }
     end
