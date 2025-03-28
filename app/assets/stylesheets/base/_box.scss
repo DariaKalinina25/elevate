@@ -6,22 +6,25 @@
   padding: 20px;
 }
 
-.box-horizontal {
+.box {
   width: 80%;
-  max-width: 900px;
-  min-height: 400px;
   background-color: #392b26;
   border-radius: 40px;
   padding: 40px;
   text-align: center;
-}
 
-.box-vertical {
-  width: 80%;
-  max-width: 500px;
-  min-height: 600px;
-  background-color: #392b26;
-  border-radius: 40px;
-  padding: 40px;
-  text-align: center;
+  &--horizontal {
+    max-width: 900px;
+    min-height: 400px;
+  }
+
+  &--vertical {
+    max-width: 500px;
+    min-height: 600px;
+  }
+
+  &--horizontal-large {
+    max-width: 1000px;
+    min-height: 600px;
+  }
 }

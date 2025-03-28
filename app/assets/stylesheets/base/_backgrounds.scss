@@ -15,3 +15,8 @@
   @include blurred-background;
   background: url('/backgrounds/authentication.jpg') center/cover no-repeat;
 }
+
+.note-background::before {
+  @include blurred-background;
+  background: url('/backgrounds/note.jpg') center/cover no-repeat;
+}
