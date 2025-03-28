@@ -67,7 +67,7 @@ RSpec.describe 'Notes edit' do
     end
 
     it 'displays a title with the update date' do
-      expect(page).to have_css('h4', text: Date.current.strftime('%d.%m.%Y'))
+      expect(page).to have_css('h4', text: today_str)
     end
 
     it 'displays edited content' do
