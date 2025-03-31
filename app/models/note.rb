@@ -6,7 +6,7 @@ class Note < ApplicationRecord
   before_validation :set_title_if_blank
 
   validates :title, length: { maximum: 10 }
-  validates :content, presence: true, length: { maximum: 700 }
+  validates :content, presence: true, length: { maximum: 2000 }
 
   def set_title_if_blank
     return if title.present?
