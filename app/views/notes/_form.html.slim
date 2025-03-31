@@ -1,0 +1,16 @@
+.note-background
+  .center-container
+    .box.box--horizontal
+      h4.mb-5
+        = @note.persisted? ? t('note.edit.title') : t('note.new.title')
+
+      = form_with model: @note, local: true do |f|
+        .mb-5
+          = f.text_field :title, placeholder: t('note.title'), autocomplete: 'off', class: 'form-control transparent-input size-title'
+
+        .mb-5
+          = f.text_area :content, placeholder: t('note.content'), class: 'form-control transparent-input size-content', rows: 10
+
+        .d-flex.justify-content-between.mt-4
+          = link_to t('note.buttons.cancel'), notes_path, class: 'custom-h4'
+          = f.submit t('note.buttons.save'), class: 'link-button custom-h4'
