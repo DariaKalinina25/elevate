@@ -9,7 +9,7 @@
         url: registration_path(resource_name),
         html: { class: 'text-start' } do |f|
 
-        = render 'devise/shared/error_messages', resource: resource
+        = render 'shared/error_messages', resource: @user
 
         .mb-4.input-wrapper
           = f.label :email, class: 'form-label'
