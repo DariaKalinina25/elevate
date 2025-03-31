@@ -3,6 +3,7 @@ en:
     title: "Title"
     content: "Content"
     notes: "Notes"
+    edit: "Edit"
     buttons:
       save: "Save"
       cancel: "Cancel"
@@ -13,3 +14,7 @@ en:
       title: "Create note"
     index:
       title: "All notes"
+    notice: 
+      create: 'Note created.'
+      update: 'Note updated.'
+      delete: 'Note deleted.'
