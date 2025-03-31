@@ -1,7 +1,6 @@
 en:
   shared:
     planner: "Planner"
-    notes: "Notes"
     tracker: "Tracker"
     timer: "Timer"
     statistics: "Statistics"
