@@ -1,0 +1,12 @@
+en:
+  note:
+    title: "Title"
+    content: "Content"
+    notes: "Notes"
+    buttons:
+      save: "Save"
+      cancel: "Cancel"
+    new:
+      title: "Create note"
+    index:
+      title: "All notes"
