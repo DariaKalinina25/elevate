@@ -1,4 +1,36 @@
+// index
 .note-card {
   display: inline-block;
   text-align: center;
+}
+
+// new
+.transparent-input {
+  background: none;
+  border: 1px solid #f0d6b8;
+  color: white;
+  border-radius: 40px;
+  text-align: center;
+
+  &:focus {
+    background: none;
+    color: white;
+    border-color: #f0d6b8;
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+  }
+}
+
+.size-title {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.size-content {
+  max-width: 600px;
+  margin: 0 auto;
 }

@@ -5,6 +5,16 @@ body {
   background-color: black;
 }
 
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-style: inherit;
+  color: inherit;
+  background-color: inherit;
+}
+
 a {
   color: #f0d6b8;
   text-decoration: none;
