@@ -6,6 +6,9 @@ en:
     buttons:
       save: "Save"
       cancel: "Cancel"
+      all_notes: "To All Notes"
+      edit: "Edit"
+      delete: "Delete"
     new:
       title: "Create note"
     index:
