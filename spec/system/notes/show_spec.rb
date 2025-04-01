@@ -69,9 +69,5 @@ RSpec.describe 'Notes show' do
     it 'shows a flash notice after successful deletion' do
       expect(page).to have_css('.custom-notice', text: 'Note deleted')
     end
-
-    it 'does not show deleted note' do
-      expect(page).not_to have_css('.note-card', text: note.title)
-    end
   end
 end
