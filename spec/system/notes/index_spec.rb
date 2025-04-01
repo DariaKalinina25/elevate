@@ -10,33 +10,35 @@ RSpec.describe 'Notes index' do
     visit notes_path
   end
 
-  def icon_with_link(icon, link)
-    "a[href='#{link}'] img[src*='#{icon}']"
+  context 'when unauthenticated' do
+    before {  visit notes_path }
+
+    it 'redirects to login page' do
+      expect(page).to have_current_path(new_user_session_path, ignore_query: true)
+    end
+
+    it 'displays a flash alert' do
+      expect(page).to have_css('.custom-alert', text: t('devise.failure.unauthenticated'))
+    end
   end
 
-  context 'when the user is not logged in' do
-    it_behaves_like 'denies access to unauthenticated user', notes_path
-  end
-
-  context 'when the user opens the notes page with no notes' do
+  context 'when user has no notes' do
     before do
       login_and_visit_notes
     end
 
-    it 'shows a plus with a link to creation' do
-      expect(page).to have_css(icon_with_link('plus.svg', new_note_path))
+    it 'redirects to new note page after clicking the link' do
+      find_test('note-new-link').click
+
+      expect(page).to have_current_path(new_note_path, ignore_query: true)
     end
 
-    it 'does not show the title' do
-      expect(page).to have_no_css('h4', text: 'All Notes')
-    end
-
-    it 'does not display notes' do
-      expect(page).to have_no_css('.note')
+    it 'shows no note cards' do
+      expect(page).to have_no_css('.note-card')
     end
   end
 
-  context 'when the user opens the page with his notes' do
+  context 'when user has notes' do
     let!(:note) { create(:note, title: 'My note', user: user) }
 
     before do
@@ -44,19 +46,19 @@ RSpec.describe 'Notes index' do
       login_and_visit_notes
     end
 
-    it 'displays notes' do
-      expect(page).to have_css('.note', count: 4)
+    it 'displays all notes' do
+      expect(page).to have_css('.note-card', count: 4)
     end
 
-    context 'when the user clicks on the icons' do
-      it 'redirects to create after pressing plus' do
-        find(icon_with_link('plus.svg', new_note_path)).click
+    context 'when clicking links' do
+      it 'redirects to new note page' do
+        find_test('note-new-link').click
 
         expect(page).to have_current_path(new_note_path, ignore_query: true)
       end
 
-      it 'redirects to show after clicking icon' do
-        find(icon_with_link('note.svg', note_path(note))).click
+      it 'redirects to note details' do
+        find_test('note-show-link', text: note.title).click
 
         expect(page).to have_current_path(note_path(note), ignore_query: true)
       end
