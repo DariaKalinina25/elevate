@@ -11,7 +11,7 @@ RSpec.describe 'Notes show' do
     visit note_path(note)
   end
 
-  context 'when the user wants to open another note' do
+  context 'when opening a note owned by another user' do
     let(:other_user) { create(:user) }
     let(:other_note) { create(:note, title: 'Other note', user: other_user) }
 
@@ -19,12 +19,12 @@ RSpec.describe 'Notes show' do
       login_and_visit_note(other_note)
     end
 
-    it 'redirects to root route' do
+    it 'redirects to home page' do
       expect(page).to have_current_path(root_path, ignore_query: true)
     end
 
-    it 'shows a flash alert about non-existent page' do
-      expect(page).to have_css('.custom-alert', text: 'The page or resource does not exist.')
+    it 'displays a flash alert' do
+      expect(page).to have_css('.custom-alert', text: t('errors.not_found'))
     end
   end
 
@@ -41,15 +41,15 @@ RSpec.describe 'Notes show' do
       expect(page).to have_css('p', text: note.content)
     end
 
-    context 'when the user clicks on links or buttons' do
-      it 'redirects to index after clicking (To All Notes)' do
-        click_link_or_button 'To All Notes'
+    context 'when clicking buttons or links' do
+      it 'redirects to all notes page' do
+        find_test('all-notes-link').click
 
         expect(page).to have_current_path(notes_path, ignore_query: true)
       end
 
-      it 'redirects to edit after clicking (Edit)' do
-        click_link_or_button 'Edit'
+      it 'redirects to the edit page' do
+        find_test('edit-note-link').click
 
         expect(page).to have_current_path(edit_note_path(note), ignore_query: true)
       end
@@ -59,15 +59,15 @@ RSpec.describe 'Notes show' do
   context 'when the user deletes their note' do
     before do
       login_and_visit_note(note)
-      click_link_or_button 'Delete'
+      find_test('delete-note-button').click
     end
 
-    it 'redirects to index' do
+    it 'redirects to all notes page' do
       expect(page).to have_current_path(notes_path, ignore_query: true)
     end
 
-    it 'shows a flash notice after successful deletion' do
-      expect(page).to have_css('.custom-notice', text: 'Note deleted')
+    it 'displays a flash notice' do
+      expect(page).to have_css('.custom-notice', text: t('note.notice.delete'))
     end
   end
 end
