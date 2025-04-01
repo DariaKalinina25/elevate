@@ -2,8 +2,6 @@ en:
   note:
     title: "Title"
     content: "Content"
-    notes: "Notes"
-    edit: "Edit"
     buttons:
       save: "Save"
       cancel: "Cancel"
@@ -14,6 +12,8 @@ en:
       title: "Create note"
     index:
       title: "All notes"
+    edit: 
+      title: "Edit Note"
     notice: 
       create: 'Note created.'
       update: 'Note updated.'
