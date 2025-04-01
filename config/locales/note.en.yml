@@ -2,6 +2,7 @@ en:
   note:
     title: "Title"
     content: "Content"
+    notes: "Notes"
     buttons:
       save: "Save"
       cancel: "Cancel"
