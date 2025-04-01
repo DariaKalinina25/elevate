@@ -4,8 +4,4 @@ module TestHelpers
   def current_date_str
     Date.current.strftime('%d.%m.%Y')
   end
-
-  def find_test(id, **options)
-    find("[data-testid='#{id}']", **options)
-  end
 end

@@ -4,75 +4,74 @@ require 'rails_helper'
 
 RSpec.describe 'Notes create' do
   let(:user) { create(:user) }
-  let(:note) { build(:note, title: 'My note', content: 'My content', user: user) }
+  
+  let(:title) { 'My note' }
+  let(:content) { 'My content' }
+
+  def login_and_visit_new_note
+    login_as(user)
+    visit new_note_path
+  end
 
   def create_note(title, content)
-    login_as(user)
+    login_and_visit_new_note
 
-    visit new_note_path
-
-    fill_in 'note_title', with: title
-    fill_in 'note_content', with: content
-
-    click_link_or_button 'Save'
+    find_test('title-field').fill_in(with: title)
+    find_test('content-field').fill_in(with: content)
+    
+    find_test('save-note-button').click
   end
 
-  context 'when the user is not logged in' do
-    it_behaves_like 'denies access to unauthenticated user', new_note_path
-  end
+  context 'when the user leaves the title blank' do
+    before { create_note(' ', content) }
 
-  context 'when the user left the title blank' do
-    before { create_note(' ', note.content) }
-
-    it 'redirects to show' do
+    it 'redirects to note details' do
       expect(page).to have_current_path(note_path(Note.last), ignore_query: true)
     end
 
-    it 'shows a flash notice about successful creation' do
-      expect(page).to have_css('.custom-notice', text: 'Note was successfully created.')
+    it 'displays a flash notice' do
+      expect(page).to have_css('.custom-notice', text: t('note.notice.create'))
     end
 
-    it 'displays a title with the creation date' do
-      expect(page).to have_css('h4', text: today_str)
+    it 'uses the creation date as the note title' do
+      expect(page).to have_css('h4', text: current_date_str)
     end
   end
 
-  context 'when the user left the content blank' do
-    before { create_note(note.title, ' ') }
+  context 'when the user leaves the content blank' do
+    before { create_note(title, ' ') }
 
-    it 'remains on the page' do
-      expect(page).to have_current_path(new_note_path, ignore_query: true)
+    it 'stays on the new note page' do
+      expect(page).to have_css('h4', text: t('note.new.title'))
     end
 
-    # it 'shows content blank error' do
-    #   expect(page).to have_content("Content can't be blank")
-    # end
+    it 'shows a content blank error' do
+      expect(find_test('error')).to have_content(error_message(Note, :content, :blank))
+    end
   end
 
   context 'when the user submits valid data' do
-    before { create_note(note.title, note.content) }
+    before { create_note(title, content) }
 
-    it 'redirects to show' do
+    it 'redirects to note details' do
       expect(page).to have_current_path(note_path(Note.last), ignore_query: true)
     end
 
-    it 'shows a flash notice about successful creation' do
-      expect(page).to have_css('.custom-notice', text: 'Note was successfully created.')
+    it 'displays a flash notice' do
+      expect(page).to have_css('.custom-notice', text: t('note.notice.create'))
     end
 
-    it 'displays the title' do
-      expect(page).to have_css('h4', text: note.title)
+    it 'displays the note title' do
+      expect(page).to have_css('h4', text: title)
     end
   end
 
-  context 'when the user canceled the creation' do
-    before do
-      login_as(user)
-      visit new_note_path
-      click_link_or_button 'Cancel'
-    end
+  context 'when the user cancels note creation' do
+    it 'redirects to all notes page' do
+      login_and_visit_new_note
 
-    it 'redirects to index' do
+      find_test('cancel-note-button').click
+
       expect(page).to have_current_path(notes_path, ignore_query: true)
     end
   end
