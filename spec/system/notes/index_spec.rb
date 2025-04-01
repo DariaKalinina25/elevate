@@ -28,7 +28,7 @@ RSpec.describe 'Notes index' do
     end
 
     it 'redirects to new note page after clicking the link' do
-      find_test('note-new-link').click
+      find_test('new-note-link').click
 
       expect(page).to have_current_path(new_note_path, ignore_query: true)
     end
@@ -52,13 +52,13 @@ RSpec.describe 'Notes index' do
 
     context 'when clicking links' do
       it 'redirects to new note page' do
-        find_test('note-new-link').click
+        find_test('new-note-link').click
 
         expect(page).to have_current_path(new_note_path, ignore_query: true)
       end
 
       it 'redirects to note details' do
-        find_test('note-show-link', text: note.title).click
+        find_test('show-note-link', text: note.title).click
 
         expect(page).to have_current_path(note_path(note), ignore_query: true)
       end
