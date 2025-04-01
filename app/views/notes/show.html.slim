@@ -7,11 +7,12 @@
         = simple_format @note.content
 
       .mt-auto.d-flex.flex-column.flex-sm-row.align-items-center.justify-content-between.gap-3.pt-4
-        = link_to t('note.buttons.all_notes'), notes_path, class: 'custom-h4 link-button'
+        = link_to t('note.buttons.all_notes'), notes_path, class: 'custom-h4 link-button', data: { testid: 'all-notes-link' }
 
         .d-flex.flex-column.flex-sm-row.gap-3
-          = link_to t('note.buttons.edit'), edit_note_path(@note), class: 'custom-h4 link-button'
+          = link_to t('note.buttons.edit'), edit_note_path(@note), class: 'custom-h4 link-button', data: { testid: 'edit-note-link' }
           = button_to t('note.buttons.delete'), note_path(@note),
             method: :delete,
             class: 'link-button custom-h4',
-            form_class: 'm-0 p-0 border-0 bg-transparent'
+            form_class: 'm-0 p-0 border-0 bg-transparent',
+            data: { testid: 'delete-note-button' }
