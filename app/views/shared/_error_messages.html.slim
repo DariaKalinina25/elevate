@@ -6,4 +6,4 @@
 
     ul.mb-0
       - resource.errors.full_messages.each do |message|
-        li = message
+        li data-testid="error" = h message
