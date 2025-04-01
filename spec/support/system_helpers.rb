@@ -7,4 +7,8 @@ module SystemHelpers
     fill_in 'Password', with: user.password
     click_button 'Login'
   end
+
+  def find_test(id, **options)
+    find("[data-testid='#{id}']", **options)
+  end
 end
