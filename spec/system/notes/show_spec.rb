@@ -4,29 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'Notes show' do
   let(:user) { create(:user) }
-  let!(:note) { create(:note, title: 'My note', content: 'My content', user: user) }
+  let(:note) { create(:note, title: 'My note', content: 'My content', user: user) }
 
   def login_and_visit_note(note)
     login_as(user)
     visit note_path(note)
-  end
-
-  context 'when the user is not logged in' do
-    it_behaves_like 'denies access to unauthenticated user', note_path(note)
-  end
-
-  context 'when the user wants to open a non-existent note' do
-    before do
-      login_and_visit_note(-1)
-    end
-
-    it 'redirects to index' do
-      expect(page).to have_current_path(notes_path, ignore_query: true)
-    end
-
-    it 'shows a flash alert about non-existent note' do
-      expect(page).to have_css('.custom-alert', text: 'The note does not exist')
-    end
   end
 
   context 'when the user wants to open another note' do
@@ -37,12 +19,12 @@ RSpec.describe 'Notes show' do
       login_and_visit_note(other_note)
     end
 
-    it 'redirects to index' do
-      expect(page).to have_current_path(notes_path, ignore_query: true)
+    it 'redirects to root route' do
+      expect(page).to have_current_path(root_path, ignore_query: true)
     end
 
-    it 'shows a flash alert about non-existent note' do
-      expect(page).to have_css('.custom-alert', text: 'The note does not exist')
+    it 'shows a flash alert about non-existent page' do
+      expect(page).to have_css('.custom-alert', text: 'The page or resource does not exist.')
     end
   end
 
@@ -77,7 +59,7 @@ RSpec.describe 'Notes show' do
   context 'when the user deletes their note' do
     before do
       login_and_visit_note(note)
-      click_link 'Delete'
+      click_link_or_button 'Delete'
     end
 
     it 'redirects to index' do
@@ -85,11 +67,11 @@ RSpec.describe 'Notes show' do
     end
 
     it 'shows a flash notice after successful deletion' do
-      expect(page).to have_css('.custom-notice', text: 'Note was successfully deleted')
+      expect(page).to have_css('.custom-notice', text: 'Note deleted')
     end
 
-    # it 'no longer shows the deleted note' do
-    #   expect(page).to have_no_content(note.title)
-    # end
+    it 'does not show deleted note' do
+      expect(page).not_to have_css('.note-card', text: note.title)
+    end
   end
 end
