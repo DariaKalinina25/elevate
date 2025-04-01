@@ -33,7 +33,7 @@ RSpec.describe 'Notes create' do
       expect(page).to have_css('.custom-notice', text: t('note.notice.create'))
     end
 
-    it 'uses the creation date as the note title' do
+    it 'uses the current date as a title' do
       expect(page).to have_css('h4', text: current_date_str)
     end
   end
