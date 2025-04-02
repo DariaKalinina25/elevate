@@ -10,7 +10,7 @@
 
       - if @notes.any?
         h4.mb-4
-          = t("note.index.title")
+          = t('note.index.title')
 
         .row.row-cols-2.row-cols-md-4.g-4.justify-content-start
           - @notes.reverse_each do |note|

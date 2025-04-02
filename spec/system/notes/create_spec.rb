@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Notes create' do
   let(:user) { create(:user) }
-  
+
   let(:title) { 'My note' }
   let(:content) { 'My content' }
 
@@ -18,7 +18,7 @@ RSpec.describe 'Notes create' do
 
     find_test('title-field').fill_in(with: title)
     find_test('content-field').fill_in(with: content)
-    
+
     find_test('save-note-button').click
   end
 

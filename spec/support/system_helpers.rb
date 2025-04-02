@@ -8,7 +8,7 @@ module SystemHelpers
     click_button 'Login'
   end
 
-  def find_test(id, **options)
-    find("[data-testid='#{id}']", **options)
+  def find_test(id, **)
+    find("[data-testid='#{id}']", **)
   end
 end
