@@ -7,12 +7,22 @@
       = form_with model: @note, local: true, data: { turbo: false } do |f|
         .mb-5
           = render 'shared/error_messages', resource: @note
-        
-        .mb-5
-          = f.text_field :title, maxlength: 10, placeholder: t('note.title'), autocomplete: 'off', class: 'form-control transparent-input size-title', data: { testid: 'title-field' }
 
         .mb-5
-          = f.text_area :content, maxlength: 2000, placeholder: t('note.content'), class: 'form-control transparent-input size-content', rows: 10, data: { testid: 'content-field' }
+          = f.text_field :title,
+            maxlength: 10,
+            placeholder: t('note.title'),
+            autocomplete: 'off',
+            class: 'form-control transparent-input size-title',
+            data: { testid: 'title-field' }
+
+        .mb-5
+          = f.text_area :content,
+            maxlength: 2000,
+            placeholder: t('note.content'),
+            class: 'form-control transparent-input size-content',
+            rows: 10,
+            data: { testid: 'content-field' }
 
         .d-flex.justify-content-between.mt-4
           = link_to t('note.buttons.cancel'), notes_path, class: 'custom-h4', data: { testid: 'cancel-note-button' }
