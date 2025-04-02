@@ -11,3 +11,6 @@ require:
 
 AllCops:
   NewCops: enable
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
