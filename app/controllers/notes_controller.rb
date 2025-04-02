@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for user notes
 class NotesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_note, only: %i[show edit update destroy]
