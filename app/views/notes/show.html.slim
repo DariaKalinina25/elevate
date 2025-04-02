@@ -1,16 +1,21 @@
 .note-background
   .center-container
     .box.box--horizontal.d-flex.flex-column
-      h4.mb-5 
+      h4.mb-5
         = @note.title
-      p 
+      p
         = simple_format @note.content
 
       .mt-auto.d-flex.flex-column.flex-sm-row.align-items-center.justify-content-between.gap-3.pt-4
-        = link_to t('note.buttons.all_notes'), notes_path, class: 'custom-h4 link-button', data: { testid: 'all-notes-link' }
+        = link_to t('note.buttons.all_notes'), notes_path,
+          class: 'custom-h4 link-button',
+          data: { testid: 'all-notes-link' }
 
         .d-flex.flex-column.flex-sm-row.gap-3
-          = link_to t('note.buttons.edit'), edit_note_path(@note), class: 'custom-h4 link-button', data: { testid: 'edit-note-link' }
+          = link_to t('note.buttons.edit'), edit_note_path(@note),
+            class: 'custom-h4 link-button',
+            data: { testid: 'edit-note-link' }
+
           = button_to t('note.buttons.delete'), note_path(@note),
             method: :delete,
             class: 'link-button custom-h4',
