@@ -2,7 +2,7 @@
 
 class NotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_note, only: %i[show edit update destroy]
 
   def index
     @notes = current_user.notes
@@ -14,6 +14,7 @@ class NotesController < ApplicationController
     @note = current_user.notes.build
   end
 
+  def edit; end
 
   def create
     @note = current_user.notes.build(note_params)
@@ -23,8 +24,6 @@ class NotesController < ApplicationController
       render :new
     end
   end
-
-  def edit; end
 
   def update
     if @note.update(note_params)
@@ -46,6 +45,6 @@ class NotesController < ApplicationController
   end
 
   def note_params
-    params.require(:note).permit(:title, :content)
+    params.expect(note: %i[title content])
   end
 end

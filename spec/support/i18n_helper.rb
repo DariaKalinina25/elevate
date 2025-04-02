@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module I18nTestHelper
-  def t(key, **options)
-    I18n.t(key, **options)
+  def t(key, **)
+    I18n.t(key, **)
   end
 
   def error_message(model, attribute, type)

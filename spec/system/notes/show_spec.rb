@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Notes show' do
   let(:user) { create(:user) }
+
   let(:note) { create(:note, title: 'My note', content: 'My content', user: user) }
 
   def login_and_visit_note(note)

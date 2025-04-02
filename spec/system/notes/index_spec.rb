@@ -11,7 +11,7 @@ RSpec.describe 'Notes index' do
   end
 
   context 'when unauthenticated' do
-    before {  visit notes_path }
+    before { visit notes_path }
 
     it 'redirects to login page' do
       expect(page).to have_current_path(new_user_session_path, ignore_query: true)

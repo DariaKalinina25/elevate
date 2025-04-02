@@ -17,16 +17,16 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
-  # Shoulda Matchers
-  Shoulda::Matchers.configure do |matcher_config|
-    matcher_config.integrate do |with|
-      with.test_framework :rspec
-      with.library :rails
-    end
+# Shoulda Matchers
+Shoulda::Matchers.configure do |matcher_config|
+  matcher_config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
+end
 
 # Loading all support files
-Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
 RSpec.configure do |config|
   # General helpers
@@ -37,7 +37,7 @@ RSpec.configure do |config|
 
   # System specs
   config.before(:each, type: :system) { driven_by :rack_test }
-  config.before(:each, js: true, type: :system) { driven_by :cuprite }
+  config.before(:each, :js, type: :system) { driven_by :cuprite }
 
   # DatabaseCleaner
   config.use_transactional_fixtures = false
