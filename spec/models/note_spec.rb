@@ -12,7 +12,7 @@ RSpec.describe Note do
 
     context 'when validating content' do
       it { is_expected.to validate_presence_of(:content) }
-      it { is_expected.to validate_length_of(:content).is_at_most(700) }
+      it { is_expected.to validate_length_of(:content).is_at_most(2000) }
     end
   end
 
