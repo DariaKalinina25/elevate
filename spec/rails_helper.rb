@@ -3,6 +3,7 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
@@ -16,16 +17,7 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
-Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
-
-RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-  config.include SystemHelpers, type: :system
-  config.include TestHelpers
-
-  config.infer_spec_type_from_file_location!
-  config.filter_rails_from_backtrace!
-
+  # Shoulda Matchers
   Shoulda::Matchers.configure do |matcher_config|
     matcher_config.integrate do |with|
       with.test_framework :rspec
@@ -33,31 +25,32 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
+# Loading all support files
+Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
-  config.before(:each, :js, type: :system) do
-    driven_by :cuprite
-  end
+RSpec.configure do |config|
+  # General helpers
+  config.include FactoryBot::Syntax::Methods
+  config.include TestHelpers
+  config.include I18nTestHelper
+  config.include SystemHelpers, type: :system
 
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
+  # System specs
+  config.before(:each, type: :system) { driven_by :rack_test }
+  config.before(:each, js: true, type: :system) { driven_by :cuprite }
+
+  # DatabaseCleaner
+  config.use_transactional_fixtures = false
+
+  config.before(:suite) { DatabaseCleaner.clean_with(:truncation) }
 
   config.before do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, :js, type: :system) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before do
+    DatabaseCleaner.strategy = RSpec.current_example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
   end
 
-  config.after do
-    DatabaseCleaner.clean
-  end
+  config.after { DatabaseCleaner.clean }
+
+  config.infer_spec_type_from_file_location!
+  config.filter_rails_from_backtrace!
 end
