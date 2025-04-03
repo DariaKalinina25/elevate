@@ -19,3 +19,5 @@ en:
       create: 'Note created.'
       update: 'Note updated.'
       delete: 'Note deleted.'
+    errors:
+      notes_limit: 'You can create up to 20 notes.'
