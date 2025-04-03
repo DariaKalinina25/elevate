@@ -20,7 +20,7 @@ class Note < ApplicationRecord
 
   def notes_limit
     return if user.notes.count < 20
-  
+
     errors.add(:base, I18n.t('note.errors.notes_limit'))
   end
 end
