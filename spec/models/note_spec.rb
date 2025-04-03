@@ -20,9 +20,11 @@ RSpec.describe Note do
       let(:note) { build(:note, user: user) }
 
       before do
+        # rubocop:disable FactoryBot/ExcessiveCreateList
         create_list(:note, 20, user: user)
+        # rubocop:enable FactoryBot/ExcessiveCreateList
       end
-  
+
       it 'is not valid' do
         expect(note).not_to be_valid
       end
