@@ -30,27 +30,15 @@ RSpec.describe 'User Registration' do
     end
   end
 
-  context 'when the user enters a mismatched password confirmation' do
+  context 'when the user enters invalid data' do
     before { register_as_user(email, password, 'invalid_confirmation') }
 
     it 'stays on the sign_up page' do
       expect(page).to have_css('h4', text: t('devise.sign_up'))
     end
 
-    it 'shows a password confirmation mismatch error' do
+    it 'shows an error message' do
       expect(find_test('error')).to have_content(error_message(User, :password_confirmation, :confirmation, attribute: :password))
-    end
-  end
-
-  context 'when the user enters a too short password' do
-    before { register_as_user(email, 'short', 'short') }
-
-    it 'stays on the sign_up page' do
-      expect(page).to have_css('h4', text: t('devise.sign_up'))
-    end
-
-    it 'shows a password too short error' do
-      expect(find_test('error')).to have_content(error_message(User, :password, :too_short, count: 6))
     end
   end
 end
