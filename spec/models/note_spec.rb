@@ -14,6 +14,24 @@ RSpec.describe Note do
       it { is_expected.to validate_presence_of(:content) }
       it { is_expected.to validate_length_of(:content).is_at_most(2000) }
     end
+
+    context 'when user already has 20 notes' do
+      let(:user) { create(:user) }
+      let(:note) { build(:note, user: user) }
+
+      before do
+        create_list(:note, 20, user: user)
+      end
+  
+      it 'is not valid' do
+        expect(note).not_to be_valid
+      end
+
+      it 'adds base error' do
+        note.valid?
+        expect(note.errors[:base]).to include(I18n.t('note.errors.notes_limit'))
+      end
+    end
   end
 
   describe '#set_title_if_blank' do
