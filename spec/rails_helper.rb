@@ -32,7 +32,7 @@ RSpec.configure do |config|
   # General helpers
   config.include FactoryBot::Syntax::Methods
   config.include TestHelpers
-  config.include I18nTestHelper
+  config.include I18nTestHelpers
   config.include SystemHelpers, type: :system
 
   # Warden test mode for sessions
