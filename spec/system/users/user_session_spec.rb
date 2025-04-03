@@ -37,7 +37,9 @@ RSpec.describe 'User session' do
     end
 
     it 'displays a flash alert' do
-      expect(page).to have_css('.custom-alert', text: t('devise.failure.invalid', authentication_keys: human_name(User, :email)))
+      expect(page).to have_css('.custom-alert',
+                               text: t('devise.failure.invalid',
+                                       authentication_keys: human_name(User, :email)))
     end
   end
 
