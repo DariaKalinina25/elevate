@@ -11,11 +11,11 @@
 
         .mb-4.input-wrapper
           = f.label :email, class: 'form-label'
-          = f.email_field :email, class: 'form-control', autofocus: true, autocomplete: 'email'
+          = f.email_field :email, class: 'form-control', autofocus: true, autocomplete: 'email', data: { testid: 'email_field' }
 
         .mb-5.input-wrapper
           = f.label :password, class: 'form-label'
-          = f.password_field :password, class: 'form-control', autocomplete: 'current-password'
+          = f.password_field :password, class: 'form-control', autocomplete: 'current-password', data: { testid: 'password_field' }
 
         - if devise_mapping.rememberable?
           .mb-4.d-flex.justify-content-center.align-items-center.checkbox-wrapper
@@ -23,6 +23,6 @@
             = f.label :remember_me, for: 'remember_me', class: 'ms-2'
 
         .d-grid.mb-4.rounded-button
-          = f.submit t('devise.login'), class: 'btn btn-primary btn-block'
+          = f.submit t('devise.login'), class: 'btn btn-primary btn-block', data: { testid: 'login-button' }
 
       = render 'devise/shared/links'

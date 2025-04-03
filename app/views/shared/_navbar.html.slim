@@ -20,6 +20,7 @@ nav.navbar.navbar-expand-lg.navbar-dark
             destroy_user_session_path,
             method: :delete,
             class: 'nav-link btn btn-link py-0',
-            form: { class: 'd-inline' }
+            form: { class: 'd-inline' },
+            data: { testid: 'sign_out-button' }
         - else
           li.nav-item = link_to t('devise.login'), new_user_session_path, class: 'nav-link py-0'

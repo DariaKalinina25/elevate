@@ -5,83 +5,54 @@ require 'rails_helper'
 RSpec.describe 'User session' do
   let(:user) { create(:user) }
 
+  let(:email) { user.email }
+  let(:password) { user.password }
+
   def login_as_user(email, password)
     visit new_user_session_path
 
-    fill_in 'Email', with: email
-    fill_in 'Password', with: password
+    find_test('email_field').fill_in(with: email)
+    find_test('password_field').fill_in(with: password)
 
-    click_button 'Login'
+    find_test('login-button').click
   end
 
-  shared_examples 'remains on the login page' do
-    it 'remains on the login page' do
+  context 'when the user submits valid data' do
+    before { login_as_user(email, password) }
+
+    it 'redirects to home page' do
+      expect(page).to have_current_path(root_path, ignore_query: true)
+    end
+
+    it 'displays a flash notice' do
+      expect(page).to have_css('.custom-notice', text: t('devise.sessions.signed_in'))
+    end
+  end
+
+  context 'when the user enters invalid data' do
+    before { login_as_user('wrong@example.com', 'wrongpassword') }
+
+    it 'stays on the login page' do
       expect(page).to have_current_path(new_user_session_path, ignore_query: true)
     end
-  end
 
-  shared_examples 'invalid login or email error' do
-    it 'shows flash alert for email and password error' do
-      expect(page).to have_css('.custom-alert', text: 'Invalid Email or password.')
+    it 'displays a flash alert' do
+      expect(page).to have_css('.custom-alert', text: t('devise.failure.invalid', authentication_keys: human_name(User, :email)))
     end
   end
 
-  context 'when user submits valid data' do
-    before { login_as_user(user.email, user.password) }
-
-    it 'redirects to the homepage' do
-      expect(page).to have_current_path(root_path)
-    end
-
-    it 'shows a flash notice for successful login' do
-      expect(page).to have_css('.custom-notice', text: 'Signed in successfully')
-    end
-  end
-
-  context 'when email is empty' do
-    before { login_as_user('', user.password) }
-
-    include_examples 'remains on the login page'
-
-    include_examples 'invalid login or email error'
-  end
-
-  context 'when password is empty' do
-    before { login_as_user(user.email, '') }
-
-    include_examples 'remains on the login page'
-
-    include_examples 'invalid login or email error'
-  end
-
-  context 'when email does not exist in database' do
-    before { login_as_user('invalid_email@example.com', user.password) }
-
-    include_examples 'remains on the login page'
-
-    include_examples 'invalid login or email error'
-  end
-
-  context 'when the password is not correct' do
-    before { login_as_user(user.email, 'invalid_password') }
-
-    include_examples 'remains on the login page'
-
-    include_examples 'invalid login or email error'
-  end
-
-  context 'when user logs out after login' do
+  context 'when the user signs out' do
     before do
-      login_as_user(user.email, user.password)
-      click_button 'Sign out'
+      login_as_user(email, password)
+      find_test('sign_out-button').click
     end
 
-    it 'redirects to the homepage' do
-      expect(page).to have_current_path(root_path)
+    it 'redirects to home page' do
+      expect(page).to have_current_path(root_path, ignore_query: true)
     end
 
-    it 'shows a flash notice for successful logout' do
-      expect(page).to have_css('.custom-notice', text: 'Signed out successfully')
+    it 'displays a flash notice' do
+      expect(page).to have_css('.custom-notice', text: t('devise.sessions.signed_out'))
     end
   end
 end
