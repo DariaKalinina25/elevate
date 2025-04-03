@@ -38,7 +38,8 @@ RSpec.describe 'User Registration' do
     end
 
     it 'shows an error message' do
-      expect(find_test('error')).to have_content(error_message(User, :password_confirmation, :confirmation, attribute: :password))
+      expect(find_test('error')).to have_content(error_message(User, :password_confirmation, :confirmation,
+                                                               attribute: :password))
     end
   end
 end
