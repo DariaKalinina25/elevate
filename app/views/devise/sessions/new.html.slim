@@ -11,11 +11,18 @@
 
         .mb-4.input-wrapper
           = f.label :email, class: 'form-label'
-          = f.email_field :email, class: 'form-control', autofocus: true, autocomplete: 'email', data: { testid: 'email_field' }
+          = f.email_field :email,
+            class: 'form-control',
+            autofocus: true,
+            autocomplete: 'email',
+            data: { testid: 'email_field' }
 
         .mb-5.input-wrapper
           = f.label :password, class: 'form-label'
-          = f.password_field :password, class: 'form-control', autocomplete: 'current-password', data: { testid: 'password_field' }
+          = f.password_field :password,
+            class: 'form-control',
+            autocomplete: 'current-password',
+            data: { testid: 'password_field' }
 
         - if devise_mapping.rememberable?
           .mb-4.d-flex.justify-content-center.align-items-center.checkbox-wrapper
