@@ -35,6 +35,13 @@ RSpec.configure do |config|
   config.include I18nTestHelper
   config.include SystemHelpers, type: :system
 
+  # Warden test mode for sessions
+  %i[request system].each do |type|
+    config.include Warden::Test::Helpers, type: type
+    config.before(type: type) { Warden.test_mode! }
+    config.after(type: type)  { Warden.test_reset! }
+  end
+
   # System specs
   config.before(:each, type: :system) { driven_by :rack_test }
   config.before(:each, :js, type: :system) { driven_by :cuprite }
