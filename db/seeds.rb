@@ -8,7 +8,7 @@ user = User.find_or_create_by!(email: 'demo@example.com') do |u|
   u.password_confirmation = 'password'
 end
 
-5.times do
+20.times do
   title = [Faker::Lorem.word.truncate(10), ''].sample
   content = Faker::Lorem.paragraphs(number: 3).join("\n\n")
 
