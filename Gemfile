@@ -8,6 +8,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.0.1'
 gem 'slim-rails'
+gem 'faker'
 
 # Frontend & Hotwire
 gem 'bootstrap', '~> 5.3', '>= 5.3.3'
