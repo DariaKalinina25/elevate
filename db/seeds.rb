@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+require 'faker'
+
+user = User.find_or_create_by!(email: 'demo@example.com') do |u|
+  # this is a pet project with an intentionally open password
+  u.password = 'password'
+  u.password_confirmation = 'password'
+end
+
+5.times do
+  title = [Faker::Lorem.word.truncate(10), ''].sample
+  content = Faker::Lorem.paragraphs(number: 3).join("\n\n")
+
+  user.notes.create!(
+    title: title,
+    content: content
+  )
+end
