@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_28_081250) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_15_140021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,6 +21,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_081250) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "stopwatches", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "started_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "stopped_at"
+    t.integer "status", default: 0, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_stopwatches_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,4 +47,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_081250) do
   end
 
   add_foreign_key "notes", "users"
+  add_foreign_key "stopwatches", "users"
 end
