@@ -10,6 +10,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'factory_bot_rails'
+require 'test_prof/recipes/rspec/let_it_be'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
