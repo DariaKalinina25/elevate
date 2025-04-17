@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe SetTitleIfBlank do
+  subject(:model) { dummy_class.new(title: initial_title) }
+
   let(:dummy_class) do
     Class.new do
       include ActiveModel::Model
@@ -12,14 +16,12 @@ RSpec.describe SetTitleIfBlank do
     end
   end
 
-  subject { dummy_class.new(title: initial_title) }
-
   context 'when title is nil' do
     let(:initial_title) { nil }
 
     it 'sets the title to current date on validation' do
-      subject.valid?
-      expect(subject.title).to eq(current_date_str)
+      model.valid?
+      expect(model.title).to eq(current_date_str)
     end
   end
 
@@ -27,8 +29,8 @@ RSpec.describe SetTitleIfBlank do
     let(:initial_title) { ' ' }
 
     it 'sets the title to current date on validation' do
-      subject.valid?
-      expect(subject.title).to eq(current_date_str)
+      model.valid?
+      expect(model.title).to eq(current_date_str)
     end
   end
 
@@ -36,8 +38,8 @@ RSpec.describe SetTitleIfBlank do
     let(:initial_title) { 'Some title' }
 
     it 'keeps the existing title' do
-      subject.valid?
-      expect(subject.title).to eq('Some title')
+      model.valid?
+      expect(model.title).to eq('Some title')
     end
   end
 end

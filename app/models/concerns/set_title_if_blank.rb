@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Automatically sets today's date as title if title is blank.
 module SetTitleIfBlank
   extend ActiveSupport::Concern
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Model for custom stopwatches
 class Stopwatch < ApplicationRecord
   include SetTitleIfBlank
 
