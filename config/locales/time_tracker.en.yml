@@ -1,0 +1,8 @@
+en:
+  time_tracker:
+    no_story: "No story yet"
+    elapsed: "%{h}h %{m}m %{s}s"
+    stopwatch:
+      title: "Stopwatch"
+    errors:
+      already_running: "Already running."

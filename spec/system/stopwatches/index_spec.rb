@@ -30,7 +30,7 @@ RSpec.describe 'Stopwatches index' do
     end
 
     it 'shows stopwatch with initial value' do
-      expect(find_test('stopwatch-field')).to have_text(t('time.elapsed', h: 0, m: 0, s: 0))
+      expect(find_test('stopwatch-field')).to have_text(t('time_tracker.elapsed', h: 0, m: 0, s: 0))
     end
 
     it 'shows the start button' do
@@ -44,7 +44,7 @@ RSpec.describe 'Stopwatches index' do
 
   shared_examples 'empty story section' do
     it 'displays message about absence of stopwatches' do
-      expect(page).to have_text(t('time.no_story'))
+      expect(page).to have_text(t('time_tracker.no_story'))
     end
 
     it 'does not display story' do
@@ -86,7 +86,7 @@ RSpec.describe 'Stopwatches index' do
     end
 
     it 'updates the running stopwatch timer' do
-      expect(find_test('stopwatch-field')).to have_text(t('time.elapsed', h: 0, m: 0, s: 1), wait: 3)
+      expect(find_test('stopwatch-field')).to have_text(t('time_tracker.elapsed', h: 0, m: 0, s: 1), wait: 3)
     end
 
     it 'shows the stop button' do
@@ -98,7 +98,7 @@ RSpec.describe 'Stopwatches index' do
     end
 
     it 'displays message about absence of stopwatches' do
-      expect(page).to have_text(t('time.no_story'))
+      expect(page).to have_text(t('time_tracker.no_story'))
     end
 
     it 'does not display the running stopwatch in story list' do
@@ -120,7 +120,7 @@ RSpec.describe 'Stopwatches index' do
     end
 
     it 'hides the message about no stopwatches' do
-      expect(page).to have_no_text(t('time.no_story'))
+      expect(page).to have_no_text(t('time_tracker.no_story'))
     end
 
     context 'when user deletes the stopwatch from the story' do

@@ -23,7 +23,7 @@ RSpec.describe Stopwatch do
 
       it 'adds base error' do
         new_started_stopwatch.valid?
-        expect(new_started_stopwatch.errors[:base]).to include(I18n.t('time.errors.already_running'))
+        expect(new_started_stopwatch.errors[:base]).to include(I18n.t('time_tracker.errors.already_running'))
       end
     end
 

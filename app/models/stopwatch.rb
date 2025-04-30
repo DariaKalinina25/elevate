@@ -23,14 +23,14 @@ class Stopwatch < ApplicationRecord
   end
 
   def elapsed_time_str
-    return I18n.t('time.elapsed', h: 0, m: 0, s: 0) unless started_at
+    return I18n.t('time_tracker.elapsed', h: 0, m: 0, s: 0) unless started_at
 
     total = ((stopped_at || Time.current) - started_at).to_i
     hours   = total / 3600
     minutes = (total % 3600) / 60
     seconds = total % 60
 
-    I18n.t('time.elapsed', h: hours, m: minutes, s: seconds)
+    I18n.t('time_tracker.elapsed', h: hours, m: minutes, s: seconds)
   end
 
   private
@@ -39,6 +39,6 @@ class Stopwatch < ApplicationRecord
     return unless started?
     return unless user.stopwatches.started.exists?
 
-    errors.add(:base, I18n.t('time.errors.already_running'))
+    errors.add(:base, I18n.t('time_tracker.errors.already_running'))
   end
 end
