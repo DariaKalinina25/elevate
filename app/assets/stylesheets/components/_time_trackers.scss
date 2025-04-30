@@ -1,0 +1,28 @@
+.title-input {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  border-radius: 40px;
+  text-align: center;
+
+  &:focus {
+    background: none;
+    color: white;
+    border-color: #f0d6b8;
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+  }
+}
+
+.rotated-icon {
+  transform: rotate(45deg);
+}
+
+#stopwatch-timer {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
