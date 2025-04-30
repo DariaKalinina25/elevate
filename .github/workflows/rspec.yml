@@ -22,7 +22,6 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: elevate_test
         ports:
           - 5432:5432
         options: >-
@@ -33,7 +32,8 @@ jobs:
 
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/elevate_test
+      ELEVATE_DATABASE_USER: postgres
+      ELEVATE_DATABASE_PASSWORD: postgres
 
     steps:
       - name: Checkout code
@@ -48,8 +48,8 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Set up database
-        run: bin/rails db:create db:schema:load --trace
+      - name: Prepare test databases
+        run: bundle exec rails parallel:prepare
 
-      - name: Run RSpec
-        run: bundle exec rspec
+      - name: Run RSpec in parallel
+        run: bundle exec parallel_rspec spec -n 4
