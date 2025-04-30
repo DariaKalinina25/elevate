@@ -1,5 +1,6 @@
 en:
   time_tracker:
+    title: "Time trackers"
     no_story: "No story yet"
     elapsed: "%{h}h %{m}m %{s}s"
     stopwatch:
