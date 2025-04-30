@@ -11,7 +11,7 @@
         .mb-5
           = f.text_field :title,
             maxlength: 10,
-            placeholder: t('note.title'),
+            placeholder: current_date_str,
             autocomplete: 'off',
             class: 'form-control transparent-input size-title',
             data: { testid: 'title-field' }
