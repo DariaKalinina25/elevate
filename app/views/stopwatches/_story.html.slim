@@ -1,0 +1,17 @@
+- if stopwatches.any?
+  .stopwatch-story.mt-3
+    - stopwatches.each do |sw|
+      = turbo_frame_tag dom_id(sw) do
+        hr
+
+        .d-flex.justify-content-between.align-items-center.mb-3
+          = "#{sw.title} – #{sw.elapsed_time_str}"
+
+          = button_to stopwatch_path(sw),
+            method: :delete,
+            data: { turbo: true, testid: 'delete-stopwatch-button' },
+            class: 'p-0 border-0 bg-transparent'
+            = image_tag 'icons/plus.svg', class: 'rotated-icon', width: 25
+
+- else
+    = t('time.no_story')

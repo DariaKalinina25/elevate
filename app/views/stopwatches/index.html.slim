@@ -1,0 +1,10 @@
+  .stopwatch-background
+    .center-container
+      .box.box--vertical
+        h4.mb-5
+          = t('time.stopwatch.title')
+        = turbo_frame_tag 'stopwatch-frame' do
+          = render 'frame', stopwatch: @stopwatch
+
+        = turbo_frame_tag 'stopwatch-story' do
+          = render 'story', stopwatches: @stopwatches

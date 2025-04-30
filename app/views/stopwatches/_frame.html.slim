@@ -1,0 +1,37 @@
+= turbo_frame_tag 'stopwatch-frame' do
+  .d-flex.flex-column.align-items-center
+    .mb-5
+      = image_tag 'icons/stopwatch.svg', width: 120
+
+    - if stopwatch.persisted? && stopwatch.started?
+      h4.mb-3 data-testid="title-stopwatch" = stopwatch.title
+
+      = tag.div stopwatch.elapsed_time_str, **stopwatch_timer_attrs(stopwatch)
+
+      .mb-3
+        = button_to stop_stopwatch_path(stopwatch),
+          method: :patch,
+          form: { data: { turbo: true } },
+          class: 'p-0 border-0 bg-transparent'
+          = image_tag 'icons/stop.svg',
+            width: 50,
+            data: { testid: 'stop-stopwatch-button' }
+
+    - else
+      = form_with model: stopwatch, url: stopwatches_path, method: :post, data: { turbo: true } do |f|
+        .mb-3
+          = f.text_field :title,
+            maxlength: 10,
+            placeholder: current_date_str,
+            autocomplete: 'off',
+            class: 'form-control title-input',
+            data: { testid: 'title-stopwatch-field' }
+
+        = tag.div stopwatch.elapsed_time_str, **stopwatch_timer_attrs(stopwatch)
+
+        .mb-3
+          = f.button type: 'submit',
+            class: 'p-0 border-0 bg-transparent'
+            = image_tag 'icons/start.svg',
+              width: 50,
+              data: { testid: 'start-stopwatch-button' }
