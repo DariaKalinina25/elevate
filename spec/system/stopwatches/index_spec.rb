@@ -125,7 +125,7 @@ RSpec.describe 'Stopwatches index' do
 
     context 'when user deletes the stopwatch from the story' do
       before do
-        within find_test('stopwatch-story', text: title) do
+        within('.stopwatch-story', text: title) do
           find_test('delete-stopwatch-button').click
         end
       end
