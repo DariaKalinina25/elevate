@@ -55,7 +55,7 @@ group :development, :test do
   gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'parallel_tests'
-  gem 'rspec-rails', '~> 7.1'
+  gem 'rspec-rails', '~> 8.0'
   gem 'shoulda-matchers'
   gem 'test-prof'
 end
