@@ -28,7 +28,7 @@ jobs:
           --health-cmd "pg_isready -U postgres"
           --health-interval 5s
           --health-timeout 2s
-          --health-retries 3
+          --health-retries 5
 
     env:
       RAILS_ENV: test
@@ -47,6 +47,9 @@ jobs:
 
       - name: Install dependencies
         run: bundle install
+
+      - name: Create test database
+        run: bundle exec rails db:create
 
       - name: Prepare test databases
         run: bundle exec rails parallel:prepare
