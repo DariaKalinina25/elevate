@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Provides view helpers for the Stopwatch component
 module StopwatchesHelper
   def stopwatch_timer_attrs(stopwatch)
     {

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for user stopwatches
 class StopwatchesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_stopwatch, only: %i[stop destroy]

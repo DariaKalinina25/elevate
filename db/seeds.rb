@@ -9,7 +9,7 @@ user = User.find_or_create_by!(email: 'demo@example.com') do |u|
 end
 
 5.times do
-  title = %w(Plan Topics Exams Notes Goals).sample
+  title = %w[Plan Topics Exams Notes Goals].sample
   content = Faker::Lorem.paragraphs(number: 3).join("\n\n")
 
   user.notes.create!(
@@ -19,8 +19,8 @@ end
 end
 
 5.times do
-  title = %w(Study Read Plan).sample
-  started_at = Time.current - 3.hours
+  title = %w[Study Read Plan].sample
+  started_at = 3.hours.ago
   stopped_at = [started_at + 20.minutes, started_at + 2.hours].sample
 
   user.stopwatches.create!(
