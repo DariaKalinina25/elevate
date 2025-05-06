@@ -51,6 +51,9 @@ jobs:
       - name: Create test database
         run: bundle exec rails db:create
 
+      - name: Run migrations
+        run: bundle exec rails db:migrate
+
       - name: Prepare test databases
         run: bundle exec rails parallel:prepare
 
