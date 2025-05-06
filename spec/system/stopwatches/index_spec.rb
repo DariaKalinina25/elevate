@@ -67,8 +67,8 @@ RSpec.describe 'Stopwatches index' do
   context 'when user opens the stopwatches page' do
     before { login_and_visit_stopwatches }
 
-    include_examples 'default stopwatch view state'
-    include_examples 'empty story section'
+    it_behaves_like 'default stopwatch view state'
+    it_behaves_like 'empty story section'
   end
 
   context 'when user starts a new stopwatch', :js do
@@ -113,7 +113,7 @@ RSpec.describe 'Stopwatches index' do
       stop_stopwatch
     end
 
-    include_examples 'default stopwatch view state'
+    it_behaves_like 'default stopwatch view state'
 
     it 'adds the stopped stopwatch to the story' do
       expect(page).to have_css('.stopwatch-story', text: title)
@@ -130,7 +130,7 @@ RSpec.describe 'Stopwatches index' do
         end
       end
 
-      include_examples 'empty story section'
+      it_behaves_like 'empty story section'
     end
   end
 end
