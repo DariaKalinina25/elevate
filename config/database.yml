@@ -12,6 +12,7 @@ development:
 test:
   <<: *default
   database: elevate_test<%= ENV['TEST_ENV_NUMBER'] %>
+  host: localhost
 
 production:
   primary: &primary_production
