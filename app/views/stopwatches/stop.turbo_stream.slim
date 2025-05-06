@@ -1,0 +1,6 @@
+= turbo_stream.replace 'stopwatch-frame' do
+  = render 'frame', stopwatch: @stopwatch
+
+= turbo_stream.replace 'stopwatch-story' do
+  = turbo_frame_tag 'stopwatch-story' do
+    = render 'story', stopwatches: @stopwatches

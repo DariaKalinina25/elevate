@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :note do
+  factory :stopwatch do
     user
     title { generate(:title) }
-    content { 'Text of the note' }
+
+    trait :stopped do
+      status { :stopped }
+    end
   end
 end

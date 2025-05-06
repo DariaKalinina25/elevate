@@ -1,6 +1,5 @@
 en:
   note:
-    title: "Title"
     content: "Content"
     notes: "Notes"
     buttons:
@@ -16,8 +15,8 @@ en:
     edit: 
       title: "Edit Note"
     notice: 
-      create: 'Note created.'
-      update: 'Note updated.'
-      delete: 'Note deleted.'
+      create: "Note created."
+      update: "Note updated."
+      delete: "Note deleted."
     errors:
-      notes_limit: 'You can create up to 20 notes.'
+      notes_limit: "You can create up to 20 notes."

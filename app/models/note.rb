@@ -2,8 +2,9 @@
 
 # Model for user-created notes
 class Note < ApplicationRecord
+  include SetTitleIfBlank
+
   belongs_to :user
-  before_validation :set_title_if_blank
 
   validate :notes_limit, on: :create
 
@@ -11,12 +12,6 @@ class Note < ApplicationRecord
   validates :content, presence: true, length: { maximum: 2000 }
 
   private
-
-  def set_title_if_blank
-    return if title.present?
-
-    self.title = Date.current.strftime('%d.%m.%Y')
-  end
 
   def notes_limit
     return if user.notes.count < 20

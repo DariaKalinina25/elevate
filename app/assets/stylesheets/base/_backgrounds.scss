@@ -20,3 +20,8 @@
   @include blurred-background;
   background: url('/backgrounds/note.jpg') center/cover no-repeat;
 }
+
+.stopwatch-background::before {
+  @include blurred-background;
+  background: url('/backgrounds/stopwatch.jpg') center/cover no-repeat;
+}

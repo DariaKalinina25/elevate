@@ -3,6 +3,7 @@
 # User model handles authentication and user-related data.
 class User < ApplicationRecord
   has_many :notes, dependent: :destroy
+  has_many :stopwatches, dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

@@ -7,5 +7,11 @@ Rails.application.routes.draw do
 
   resources :notes
 
+  resources :stopwatches, only: %i[index create destroy] do
+    member do
+      patch :stop
+    end
+  end
+
   get 'up' => 'rails/health#show', as: :rails_health_check
 end

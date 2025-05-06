@@ -4,7 +4,7 @@
       .d-flex.align-items-center.justify-content-start
         = image_tag 'icons/note.svg', width: 120, height: 120, class: 'me-2'
         = link_to new_note_path, class: 'd-inline-block', data: { testid: 'new-note-link' } do
-          = image_tag 'icons/plus.svg', width: 50, height: 50
+          = image_tag 'icons/plus.svg', width: 50
 
       hr.my-4
 
@@ -16,5 +16,5 @@
           - @notes.reverse_each do |note|
             .col
               = link_to note_path(note), class: 'note-card', data: { testid: 'show-note-link' } do
-                = image_tag 'icons/note.svg', width: 100, height: 100
+                = image_tag 'icons/note.svg', width: 100
                 .mt-2 = note.title

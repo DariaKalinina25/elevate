@@ -8,12 +8,25 @@ user = User.find_or_create_by!(email: 'demo@example.com') do |u|
   u.password_confirmation = 'password'
 end
 
-20.times do
-  title = [Faker::Lorem.word.truncate(10), ''].sample
+5.times do
+  title = %w[Plan Topics Exams Notes Goals].sample
   content = Faker::Lorem.paragraphs(number: 3).join("\n\n")
 
   user.notes.create!(
     title: title,
     content: content
+  )
+end
+
+5.times do
+  title = %w[Study Read Plan].sample
+  started_at = 3.hours.ago
+  stopped_at = [started_at + 20.minutes, started_at + 2.hours].sample
+
+  user.stopwatches.create!(
+    title: title,
+    started_at: started_at,
+    stopped_at: stopped_at,
+    status: :stopped
   )
 end

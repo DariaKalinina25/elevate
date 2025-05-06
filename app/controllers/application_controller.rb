@@ -12,4 +12,11 @@ class ApplicationController < ActionController::Base
   def record_not_found
     redirect_to root_path, alert: t('errors.not_found')
   end
+
+  def respond_with_success(redirect_path)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to redirect_path }
+    end
+  end
 end
