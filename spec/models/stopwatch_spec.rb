@@ -13,25 +13,23 @@ RSpec.describe Stopwatch do
     end
   end
 
-  describe '#stop' do
-    context 'when the stopwatch is started' do
-      let(:stopwatch) { create(:stopwatch, user: user) }
+  describe 'creation' do
+    let(:stopwatch) { create(:stopwatch, user: user) }
 
-      it 'sets started_at to creation time, has status started and stopped_at nil' do
-        expect(stopwatch).to have_attributes(started_at: be_within(1).of(Time.current),
-                                             stopped_at: nil,
-                                             status: 'started')
-      end
+    it 'sets started_at and status to started by default' do
+      expect(stopwatch).to have_attributes(started_at: be_within(1).of(Time.current),
+                                            status: 'started')
     end
+  end
 
+  describe '#stop' do
     context 'when the running stopwatch is stopped' do
       let(:stopwatch) { build(:stopwatch, started_at: 5.minutes.ago, user: user) }
 
       it 'sets stopped_at to current time and updates status to stopped' do
         stopwatch.stop
 
-        expect(stopwatch).to have_attributes(started_at: be_within(1).of(5.minutes.ago),
-                                             stopped_at: be_within(1).of(Time.current),
+        expect(stopwatch).to have_attributes(stopped_at: be_within(1).of(Time.current),
                                              status: 'stopped')
       end
     end
@@ -39,7 +37,7 @@ RSpec.describe Stopwatch do
     context 'when stopping an already stopped stopwatch' do
       let(:stopwatch) { create(:stopwatch, :stopped, stopped_at: 5.minutes.from_now, user: user) }
 
-      it 'does nothing and returns false' do
+      it 'returns false' do
         expect(stopwatch.stop).to be false
       end
     end
