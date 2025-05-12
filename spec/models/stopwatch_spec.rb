@@ -11,32 +11,6 @@ RSpec.describe Stopwatch do
     context 'when validating title' do
       it { is_expected.to validate_length_of(:title).is_at_most(10) }
     end
-
-    context 'when creating a stopwatch while another is running' do
-      before { create(:stopwatch, user: user) }
-
-      let(:new_started_stopwatch) { build(:stopwatch, user: user) }
-
-      it 'is not valid' do
-        expect(new_started_stopwatch).not_to be_valid
-      end
-
-      it 'adds base error' do
-        new_started_stopwatch.valid?
-        expect(new_started_stopwatch.errors[:base]).to include(I18n.t('time_tracker.errors.already_running'))
-      end
-    end
-
-    context "when creating a stopwatch while another user's stopwatch is running" do
-      before { create(:stopwatch, user: user) }
-
-      let(:other_user) { create(:user) }
-      let(:new_started_stopwatch) { build(:stopwatch, user: other_user) }
-
-      it 'is valid' do
-        expect(new_started_stopwatch).to be_valid
-      end
-    end
   end
 
   describe '#stop' do
@@ -127,6 +101,34 @@ RSpec.describe Stopwatch do
 
       it 'does not return the started stopwatch' do
         expect(described_class.stopped_recent).not_to include(started_stopwatch)
+      end
+    end
+  end
+
+  describe '#abort_if_user_has_active_stopwatch' do
+    let(:new_started_stopwatch) { build(:stopwatch, user: user) }
+
+    context 'when no active stopwatch exists' do
+      it 'allows creation' do
+        expect(new_started_stopwatch.save).to be_truthy
+      end
+    end
+
+    context 'when user already has a running stopwatch' do
+      before { create(:stopwatch, user: user) }
+
+      it 'does not allow creation of a second stopwatch' do
+        expect(new_started_stopwatch.save).to be_falsey
+      end
+    end
+
+    context "when another user's stopwatch is running" do
+      let(:other_user) { create(:user) }
+
+      before { create(:stopwatch, user: other_user) }
+
+      it 'allows you to create a stopwatch for the current user' do
+        expect(new_started_stopwatch.save).to be_truthy
       end
     end
   end
