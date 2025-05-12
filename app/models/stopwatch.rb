@@ -3,6 +3,7 @@
 # Model for custom stopwatches
 class Stopwatch < ApplicationRecord
   include SetTitleIfBlank
+  include ElapsedFormatter
 
   belongs_to :user
 
@@ -10,7 +11,7 @@ class Stopwatch < ApplicationRecord
 
   scope :stopped_recent, ->(limit = 3) { stopped.order(created_at: :desc).limit(limit) }
 
-  validate :ensure_single_started, on: :create
+  before_create :abort_if_user_has_active_stopwatch
 
   validates :title, length: { maximum: 10 }
 
@@ -23,22 +24,18 @@ class Stopwatch < ApplicationRecord
   end
 
   def elapsed_time_str
-    return I18n.t('time_tracker.elapsed', h: 0, m: 0, s: 0) unless started_at
+    return format_elapsed_time(0) unless started_at
 
     total = ((stopped_at || Time.current) - started_at).to_i
-    hours   = total / 3600
-    minutes = (total % 3600) / 60
-    seconds = total % 60
-
-    I18n.t('time_tracker.elapsed', h: hours, m: minutes, s: seconds)
+    format_elapsed_time(total)
   end
 
   private
 
-  def ensure_single_started
+  def abort_if_user_has_active_stopwatch
     return unless started?
     return unless user.stopwatches.started.exists?
 
-    errors.add(:base, I18n.t('time_tracker.errors.already_running'))
+    throw(:abort)
   end
 end
