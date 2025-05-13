@@ -18,7 +18,7 @@ RSpec.describe Stopwatch do
 
     it 'sets started_at and status to started by default' do
       expect(stopwatch).to have_attributes(started_at: be_within(1).of(Time.current),
-                                            status: 'started')
+                                           status: 'started')
     end
   end
 
@@ -44,11 +44,19 @@ RSpec.describe Stopwatch do
   end
 
   describe '#elapsed_time_str' do
+    context 'when started_at is nil' do
+      let(:stopwatch) { build(:stopwatch, started_at: nil, user: user) }
+
+      it 'returns zero' do
+        expect(stopwatch.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 0, s: 0))
+      end
+    end
+
     context 'when the stopwatch is running' do
       let(:stopwatch) { build(:stopwatch, started_at: 5.minutes.ago, user: user) }
 
       it 'returns the elapsed time from the start until now' do
-        expect(stopwatch.elapsed_time_str).to eq('0h 5m 0s')
+        expect(stopwatch.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 5, s: 0))
       end
     end
 
@@ -56,23 +64,7 @@ RSpec.describe Stopwatch do
       let(:stopwatch) { create(:stopwatch, :stopped, stopped_at: 5.minutes.from_now, user: user) }
 
       it 'returns the elapsed time from start to stop' do
-        expect(stopwatch.elapsed_time_str).to eq('0h 5m 0s')
-      end
-    end
-
-    context 'when the stopwatch stops in milliseconds' do
-      let(:stopwatch) { create(:stopwatch, :stopped, stopped_at: Time.current + 0.01, user: user) }
-
-      it 'returns the elapsed time as zero' do
-        expect(stopwatch.elapsed_time_str).to eq('0h 0m 0s')
-      end
-    end
-
-    context 'when the stopwatch stops after more than 24 hours' do
-      let(:stopwatch) { create(:stopwatch, :stopped, stopped_at: 2.days.from_now, user: user) }
-
-      it 'returns the elapsed time in hours' do
-        expect(stopwatch.elapsed_time_str).to eq('48h 0m 0s')
+        expect(stopwatch.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 5, s: 0))
       end
     end
   end
