@@ -6,7 +6,7 @@ FactoryBot.define do
     title { generate(:title) }
     duration_seconds { 60 }
 
-    trait :not_expired do
+    trait :unexpired do
       started_at { 5.seconds.ago }
       stopped_at { started_at + duration_seconds }
     end

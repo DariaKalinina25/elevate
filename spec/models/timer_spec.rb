@@ -35,8 +35,8 @@ RSpec.describe Timer do
       end
     end
 
-    context 'when a non-expired timer is stopped' do
-      let(:timer) { create(:timer, :not_expired, user: user) }
+    context 'when an unexpired timer is stopped' do
+      let(:timer) { create(:timer, :unexpired, user: user) }
 
       it 'updates status and recalculates duration and stop time' do
         timer.stop
@@ -65,8 +65,8 @@ RSpec.describe Timer do
       end
     end
 
-    context 'when the timer is started and has not expired' do
-      let(:timer) { build(:timer, :not_expired, user: user) }
+    context 'when the timer is active and unexpired' do
+      let(:timer) { build(:timer, :unexpired, user: user) }
 
       it 'returns the elapsed time from the start until now' do
         expect(timer.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 0, s: 5))
