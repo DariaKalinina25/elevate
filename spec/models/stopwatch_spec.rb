@@ -14,7 +14,7 @@ RSpec.describe Stopwatch do
   end
 
   describe 'creation' do
-    let(:stopwatch) { create(:stopwatch, user: user) }
+    let(:stopwatch) { create(:stopwatch, started_at: nil, user: user) }
 
     it 'sets started_at and status to started by default' do
       expect(stopwatch).to have_attributes(started_at: be_within(1).of(Time.current),
@@ -35,7 +35,7 @@ RSpec.describe Stopwatch do
     end
 
     context 'when stopping an already stopped stopwatch' do
-      let(:stopwatch) { create(:stopwatch, :stopped, stopped_at: 5.minutes.from_now, user: user) }
+      let(:stopwatch) { build(:stopwatch, :stopped, user: user) }
 
       it 'returns false' do
         expect(stopwatch.stop).to be false
@@ -61,7 +61,7 @@ RSpec.describe Stopwatch do
     end
 
     context 'when the stopwatch is stopped' do
-      let(:stopwatch) { create(:stopwatch, :stopped, stopped_at: 5.minutes.from_now, user: user) }
+      let(:stopwatch) { build(:stopwatch, :stopped, user: user) }
 
       it 'returns the elapsed time from start to stop' do
         expect(stopwatch.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 5, s: 0))
@@ -71,10 +71,17 @@ RSpec.describe Stopwatch do
 
   describe '.stopped_recent' do
     let!(:started_stopwatch) { create(:stopwatch, user: user) }
-    let!(:stopwatch_first) { create(:stopwatch, :stopped, stopped_at: 4.minutes.from_now, user: user) }
-    let!(:stopwatch_second) { create(:stopwatch, :stopped, stopped_at: 3.minutes.from_now, user: user) }
-    let!(:stopwatch_third) { create(:stopwatch, :stopped, stopped_at: 2.minutes.from_now, user: user) }
-    let!(:stopwatch_fourth) { create(:stopwatch, :stopped, stopped_at: 1.minute.from_now, user: user) }
+
+    let!(:stopwatches) do
+      [4, 3, 2, 1].map do |i|
+        create(:stopwatch, :stopped, stopped_at: i.minutes.from_now, user: user)
+      end
+    end
+
+    let!(:stopwatch_first)  { stopwatches[0] }
+    let!(:stopwatch_second) { stopwatches[1] }
+    let!(:stopwatch_third)  { stopwatches[2] }
+    let!(:stopwatch_fourth) { stopwatches[3] }
 
     context 'when there are multiple stopped and one started stopwatch' do
       it 'returns the 3 most recently stopped stopwatches in correct order' do
