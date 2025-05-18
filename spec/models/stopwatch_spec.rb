@@ -73,19 +73,14 @@ RSpec.describe Stopwatch do
     let!(:started_stopwatch) { create(:stopwatch, user: user) }
 
     let!(:stopwatches) do
-      [4, 3, 2, 1].map do |i|
+      4.downto(1).map do |i|
         create(:stopwatch, :stopped, stopped_at: i.minutes.from_now, user: user)
       end
     end
 
-    let!(:stopwatch_first)  { stopwatches[0] }
-    let!(:stopwatch_second) { stopwatches[1] }
-    let!(:stopwatch_third)  { stopwatches[2] }
-    let!(:stopwatch_fourth) { stopwatches[3] }
-
     context 'when there are multiple stopped and one started stopwatch' do
       it 'returns the 3 most recently stopped stopwatches in correct order' do
-        expect(described_class.stopped_recent).to eq([stopwatch_fourth, stopwatch_third, stopwatch_second])
+        expect(described_class.stopped_recent).to eq([stopwatches[3], stopwatches[2], stopwatches[1]])
       end
 
       it 'returns exactly 3 records by default' do
@@ -93,7 +88,7 @@ RSpec.describe Stopwatch do
       end
 
       it 'does not return the first stopwatch of four' do
-        expect(described_class.stopped_recent).not_to include(stopwatch_first)
+        expect(described_class.stopped_recent).not_to include(stopwatches[0])
       end
 
       it 'does not return the started stopwatch' do
