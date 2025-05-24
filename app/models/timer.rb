@@ -9,6 +9,8 @@ class Timer < ApplicationRecord
 
   enum :status, { started: 0, stopped: 1 }
 
+  scope :stopped_recent, ->(limit = 3) { stopped.order(created_at: :desc).limit(limit) }
+
   validates :title, length: { maximum: 10 }
 
   # Stops the timer:
