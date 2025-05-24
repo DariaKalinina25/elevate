@@ -24,7 +24,7 @@ RSpec.describe Timer do
 
   describe '#stop' do
     context 'when stopping an expired timer' do
-      let(:timer) { create(:timer, :expired, user: user) }
+      let(:timer) { build(:timer, :expired, user: user) }
 
       it 'updates the status to stopped without changing duration_seconds and stopped_at' do
         timer.stop
@@ -36,7 +36,7 @@ RSpec.describe Timer do
     end
 
     context 'when an unexpired timer is stopped' do
-      let(:timer) { create(:timer, :unexpired, user: user) }
+      let(:timer) { build(:timer, :unexpired, user: user) }
 
       it 'updates status and recalculates duration and stop time' do
         timer.stop
@@ -48,7 +48,7 @@ RSpec.describe Timer do
     end
 
     context 'when stopping an already stopped timer' do
-      let(:timer) { create(:timer, :stopped, user: user) }
+      let(:timer) { build(:timer, :stopped, user: user) }
 
       it 'returns false' do
         expect(timer.stop).to be false
@@ -74,7 +74,7 @@ RSpec.describe Timer do
     end
 
     context 'when the timer has expired' do
-      let(:timer) { create(:timer, :expired, user: user) }
+      let(:timer) { build(:timer, :expired, user: user) }
 
       it 'returns formatted duration_seconds' do
         expect(timer.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 1, s: 0))
@@ -82,7 +82,7 @@ RSpec.describe Timer do
     end
 
     context 'when the timer is stopped' do
-      let(:timer) { create(:timer, :stopped, user: user) }
+      let(:timer) { build(:timer, :stopped, user: user) }
 
       it 'returns formatted duration_seconds' do
         expect(timer.elapsed_time_str).to eq(t('time_tracker.elapsed', h: 0, m: 1, s: 0))
