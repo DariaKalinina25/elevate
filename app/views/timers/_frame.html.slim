@@ -28,13 +28,14 @@
             data: { testid: 'title-timer-field' }
 
         .mb-3
-          = f.number_field :duration_seconds,
-            min: 1,
-            class: 'form-control',
-            placeholder: 'Seconds',
-            data: { testid: 'duration-timer-field' }
-
-        = tag.div timer.elapsed_time_str, **timer_timer_attrs(timer)
+          = f.text_field :duration,
+              type: 'time',
+              step: 1,
+              value: '00:00:00',
+              class: 'timer-input',
+              placeholder: 'hh:mm:ss',
+              name: 'timer[duration]',
+              data: { testid: 'duration-timer-field' }
 
         .mb-3
           = f.button type: 'submit',

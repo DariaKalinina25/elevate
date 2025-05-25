@@ -13,7 +13,7 @@ class TimersController < ApplicationController
   def create
     @timer = TimerCreator.new(
       user: current_user,
-      duration_seconds: timer_params[:duration_seconds].to_i,
+      duration_seconds: DurationParser.to_seconds(timer_params[:duration]),
       title: timer_params[:title]
     ).call
 
@@ -48,6 +48,6 @@ class TimersController < ApplicationController
   end
 
   def timer_params
-    params.expect(timer: [:title, :duration_seconds])
+    params.expect(timer: [:title, :duration])
   end
 end

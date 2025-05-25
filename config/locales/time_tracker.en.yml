@@ -5,5 +5,7 @@ en:
     elapsed: "%{h}h %{m}m %{s}s"
     stopwatch:
       title: "Stopwatch"
+    timer:
+      title: "Timer"
     errors:
       already_running: "Already running."
