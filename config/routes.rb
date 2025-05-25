@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   resources :notes
 
   resources :stopwatches, only: %i[index create destroy] do
-    member do
-      patch :stop
-    end
+    patch :stop, on: :member
+  end
+
+  resources :timers, only: %i[index create destroy] do
+    patch :stop, on: :member
   end
 
   get 'up' => 'rails/health#show', as: :rails_health_check
