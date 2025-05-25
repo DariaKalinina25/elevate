@@ -27,9 +27,10 @@ export default class extends Controller {
     const now = new Date()
     const remaining = Math.max(0, Math.ceil((this.stopTime - now) / 1000))
 
-    const minutes = Math.floor(remaining / 60)
+    const hours = Math.floor(remaining / 3600)
+    const minutes = Math.floor((remaining % 3600) / 60)
     const seconds = remaining % 60
-    this.timerTarget.textContent = `${minutes}m ${seconds}s`
+    this.timerTarget.textContent = `${hours}h ${minutes}m ${seconds}s`
 
     if (remaining <= 0) this.finish()
   }
