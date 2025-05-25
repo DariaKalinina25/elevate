@@ -22,12 +22,14 @@ class TimersController < ApplicationController
 
   def stop
     @timer.stop
-    @stopwatch = build_timer
+    @timer = build_timer
+
     respond_with_success(timers_path)
   end
 
   def destroy
     @timer.destroy
+
     respond_with_success(timers_path)
   end
 
@@ -38,7 +40,7 @@ class TimersController < ApplicationController
   end
 
   def load_timers
-    @stopwatches = current_user.timers.stopped_recent
+    @timers = current_user.timers.stopped_recent
   end
 
   def build_timer
