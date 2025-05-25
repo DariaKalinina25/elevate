@@ -1,0 +1,44 @@
+= turbo_frame_tag 'timer-frame' do
+  .d-flex.flex-column.align-items-center
+    .mb-5 
+      = image_tag 'icons/time_tracker.svg', width: 120
+
+    - if timer.persisted? && Time.current < timer.stopped_at
+      h4.mb-3 data-testid="title-timer" = timer.title
+
+      = tag.div timer.elapsed_time_str, **timer_timer_attrs(timer)
+
+      .mb-3
+        = button_to stop_timer_path(timer),
+          method: :patch,
+          form: { data: { turbo: true } },
+          class: 'p-0 border-0 bg-transparent'
+          = image_tag 'icons/stop.svg',
+            width: 50,
+            data: { testid: 'stop-timer-button' }
+
+    - else
+      = form_with model: timer, url: timers_path, method: :post, data: { turbo: true } do |f|
+        .mb-3
+          = f.text_field :title,
+            maxlength: 10,
+            placeholder: current_date_str,
+            autocomplete: 'off',
+            class: 'form-control title-input',
+            data: { testid: 'title-timer-field' }
+
+        .mb-3
+          = f.number_field :duration_seconds,
+            min: 1,
+            class: 'form-control',
+            placeholder: 'Seconds',
+            data: { testid: 'duration-timer-field' }
+
+        = tag.div timer.elapsed_time_str, **timer_timer_attrs(timer)
+
+        .mb-3
+          = f.button type: 'submit',
+            class: 'p-0 border-0 bg-transparent'
+            = image_tag 'icons/start.svg',
+              width: 50,
+              data: { testid: 'start-timer-button' }

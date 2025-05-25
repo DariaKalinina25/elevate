@@ -1,0 +1,10 @@
+.time_tracker-background
+  .center-container
+    .box.box--vertical
+      h4.mb-5 = t('time_tracker.timer.title')
+
+      = turbo_frame_tag 'timer-frame' do
+        = render 'frame', timer: @timer
+
+      = turbo_frame_tag 'timer-story' do
+        = render 'story', timers: @timers
