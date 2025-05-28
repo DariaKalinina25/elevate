@@ -1,0 +1,16 @@
+- if timers.any?
+  .timer-story.mt-3
+    - timers.each do |tm|
+      = turbo_frame_tag dom_id(tm) do
+        hr
+
+        .d-flex.justify-content-between.align-items-center.mb-3
+          = "#{tm.title} – #{tm.elapsed_time_str}"
+
+          = button_to timer_path(tm),
+            method: :delete,
+            data: { turbo: true, testid: 'delete-timer-button' },
+            class: 'p-0 border-0 bg-transparent'
+            = image_tag 'icons/plus.svg', class: 'rotated-icon', width: 25
+- else
+  = t('time_tracker.no_story')

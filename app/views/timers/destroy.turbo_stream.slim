@@ -1,0 +1,5 @@
+= turbo_stream.remove dom_id(@timer)
+
+= turbo_stream.replace 'timer-story' do
+  = turbo_frame_tag 'timer-story' do
+    = render 'story', timers: @timers

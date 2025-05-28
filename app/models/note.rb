@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
-# Model for user-created notes
+# Note model for user notes.
+#
+# Features:
+# - Belongs to a user.
+# - Max 20 notes per user.
+# - Title: max 10 chars.
+# - Content: required, max 2000 chars.
+#
+# Includes:
+# - SetTitleIfBlank: sets title to current date if blank.
 class Note < ApplicationRecord
   include SetTitleIfBlank
 

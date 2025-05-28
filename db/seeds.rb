@@ -30,3 +30,17 @@ end
     status: :stopped
   )
 end
+
+5.times do |i|
+  duration = (i + 1) * 10
+  started_at = Time.current - duration.seconds
+  stopped_at = started_at + duration
+
+  user.timers.create!(
+    title: "Timer #{i + 1}",
+    started_at: started_at,
+    stopped_at: stopped_at,
+    duration_seconds: duration,
+    status: :stopped
+  )
+end

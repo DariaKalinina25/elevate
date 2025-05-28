@@ -26,3 +26,29 @@
   font-size: 2.5rem;
   font-weight: bold;
 }
+
+#timer-timer {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.timer-input {
+  background: #fff;
+  color: #111;
+  border: 2px solid #ccc;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  height: 48px;
+  width: 140px;
+  text-align: center;
+
+  &:focus {
+    border-color: #f0d6b8;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #aaa;
+    opacity: 1;
+  }
+}

@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
-# Stopwatch model for tracking user-controlled timers.
+# Timer model for user countdown timers.
 #
 # Features:
 # - Statuses: :started or :stopped.
 # - Belongs to a user.
 # - On creation: status is :started, `started_at` is set to current time.
-# - On stop: sets `stopped_at` to current time and updates status.
-# - Prevents creation if the user already has an active stopwatch.
-# - Returns elapsed time as HH:MM:SS, or 00:00:00 if not started.
+# - On stop: either just updates status, or sets `stopped_at` and updates status/duration.
+# Returns elapsed time as HH:MM:SS, or 00:00:00 if not started.
 #
 # Includes:
 # - SetTitleIfBlank: sets title to current date if blank.
 # - ElapsedFormatter: formats elapsed time as HH:MM:SS.
-class Stopwatch < ApplicationRecord
+class Timer < ApplicationRecord
   include SetTitleIfBlank
   include ElapsedFormatter
 
@@ -23,14 +22,21 @@ class Stopwatch < ApplicationRecord
 
   scope :stopped_recent, ->(limit = 3) { stopped.order(created_at: :desc).limit(limit) }
 
-  before_create :abort_if_user_has_active_stopwatch
-
   validates :title, length: { maximum: 10 }
 
+  validates :duration_seconds,
+            numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  # Stops the timer:
+  # - if the timer has already expired, simply updates the status to :stopped;
+  # - otherwise, sets the stop time.
+  # Returns false if the timer was already stopped.
   def stop
     return false if stopped?
+    return update(status: :stopped) if started? && stopped_at <= Time.current
 
     self.stopped_at = Time.current
+    self.duration_seconds = (stopped_at - started_at).to_i
     self.status = :stopped
     save
   end
@@ -38,16 +44,7 @@ class Stopwatch < ApplicationRecord
   def elapsed_time_str
     return format_elapsed_time(0) unless started_at
 
-    total = ((stopped_at || Time.current) - started_at).to_i
+    total = stopped_at <= Time.current ? duration_seconds : (Time.current - started_at).to_i
     format_elapsed_time(total)
-  end
-
-  private
-
-  def abort_if_user_has_active_stopwatch
-    return unless started?
-    return unless user.stopwatches.started.exists?
-
-    throw(:abort)
   end
 end
