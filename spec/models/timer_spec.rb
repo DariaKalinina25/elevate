@@ -95,4 +95,41 @@ RSpec.describe Timer do
       end
     end
   end
+
+  describe '.stopped_recent' do
+    let!(:started_timer) { create(:timer, :unexpired, user: user) }
+
+    let!(:timers) do
+      4.downto(1).map do |i|
+        duration = i * 10
+        started_at = Time.current - duration.seconds
+        create(
+          :timer,
+          :stopped,
+          started_at: started_at,
+          duration_seconds: duration,
+          stopped_at: started_at + duration,
+          user: user
+        )
+      end
+    end
+
+    context 'when there are multiple stopped and one started timer' do
+      it 'returns the 3 most recently stopped timers in correct order' do
+        expect(described_class.stopped_recent).to eq([timers[3], timers[2], timers[1]])
+      end
+
+      it 'returns exactly 3 records by default' do
+        expect(described_class.stopped_recent.count).to eq(3)
+      end
+
+      it 'does not return the first timer of four' do
+        expect(described_class.stopped_recent).not_to include(timers[0])
+      end
+
+      it 'does not return the started timer' do
+        expect(described_class.stopped_recent).not_to include(started_timer)
+      end
+    end
+  end
 end
