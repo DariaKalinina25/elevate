@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module TimersHelper
+  # rubocop:disable Metrics/MethodLength
   def timer_timer_attrs(timer)
     {
       id: 'timer-timer',
@@ -19,4 +20,5 @@ module TimersHelper
             end
     }
   end
+  # rubocop:enable Metrics/MethodLength
 end
