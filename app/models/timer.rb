@@ -13,6 +13,9 @@ class Timer < ApplicationRecord
 
   validates :title, length: { maximum: 10 }
 
+  validates :duration_seconds,
+            numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
   # Stops the timer:
   # - if the timer has already expired, simply updates the status to :stopped;
   # - otherwise, sets the stop time.
