@@ -48,6 +48,6 @@ class TimersController < ApplicationController
   end
 
   def timer_params
-    params.expect(timer: [:title, :duration])
+    params.expect(timer: %i[title duration])
   end
 end
