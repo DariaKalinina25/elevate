@@ -1,6 +1,6 @@
 = turbo_frame_tag 'timer-frame' do
   .d-flex.flex-column.align-items-center
-    .mb-5 
+    .mb-5
       = image_tag 'icons/time_tracker.svg', width: 120
 
     - if timer.persisted? && Time.current < timer.stopped_at
