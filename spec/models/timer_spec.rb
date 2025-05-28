@@ -11,6 +11,12 @@ RSpec.describe Timer do
     context 'when validating title' do
       it { is_expected.to validate_length_of(:title).is_at_most(10) }
     end
+
+    context 'when validating duration_seconds' do
+      it { is_expected.to validate_numericality_of(:duration_seconds) }
+      it { is_expected.to validate_numericality_of(:duration_seconds).only_integer }
+      it { is_expected.to validate_numericality_of(:duration_seconds).is_greater_than_or_equal_to(0) }
+    end
   end
 
   describe 'creation' do
