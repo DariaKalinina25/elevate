@@ -1,15 +1,9 @@
 name: RSpec
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
-
-permissions:
-  contents: read
+  push:
+    branches: [ main ]
 
 jobs:
   rspec:
@@ -50,7 +44,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4.2'
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Install dependencies
