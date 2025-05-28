@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ElapsedFormatter provides a helper to format elapsed seconds as a localized time string.
 module ElapsedFormatter
   extend ActiveSupport::Concern
 

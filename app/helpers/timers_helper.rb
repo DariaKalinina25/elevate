@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Provides view helpers for the Timer component
 module TimersHelper
   # rubocop:disable Metrics/MethodLength
   def timer_timer_attrs(timer)

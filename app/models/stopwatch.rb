@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
-# Model for custom stopwatches
+# Stopwatch model for tracking user-controlled timers.
+#
+# Features:
+# - Statuses: :started or :stopped.
+# - Belongs to a user.
+# - On creation: status is :started, `started_at` is set to current time.
+# - On stop: sets `stopped_at` to current time and updates status.
+# - Prevents creation if the user already has an active stopwatch.
+# - Returns elapsed time as HH:MM:SS, or 00:00:00 if not started.
+#
+# Includes:
+# - SetTitleIfBlank: sets title to current date if blank.
+# - ElapsedFormatter: formats elapsed time as HH:MM:SS.
 class Stopwatch < ApplicationRecord
   include SetTitleIfBlank
   include ElapsedFormatter

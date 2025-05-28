@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-# Timer is a model for user-defined countdown timers with a fixed duration.
+# Timer model for user countdown timers.
 #
-# Key features:
-# - Has two statuses: :started and :stopped.
-# - Each timer belongs to a user.
-# - Initialized with status :started, start time (`started_at`) set to current time.
-# - When stopped, updates `stopped_at` and final duration, or simply changes status if already expired.
-# - Created through a transaction in the `TimerCreator` service (see its docs).
+# Features:
+# - Statuses: :started or :stopped.
+# - Belongs to a user.
+# - On creation: status is :started, `started_at` is set to current time.
+# - On stop: either just updates status, or sets `stopped_at` and updates status/duration.
+# Returns elapsed time as HH:MM:SS, or 00:00:00 if not started.
 #
 # Includes:
-# - `SetTitleIfBlank`: see module docs — assigns current date as title if blank.
-# - `ElapsedFormatter`: see module docs — formats time (in seconds) as HH:MM:SS.
-
+# - SetTitleIfBlank: sets title to current date if blank.
+# - ElapsedFormatter: formats elapsed time as HH:MM:SS.
 class Timer < ApplicationRecord
   include SetTitleIfBlank
   include ElapsedFormatter
@@ -42,8 +41,6 @@ class Timer < ApplicationRecord
     save
   end
 
-  # The `elapsed_time_str` method returns the elapsed time as a string in HH:MM:SS format.
-  # If the timer hasn't started yet, it returns 00:00:00.
   def elapsed_time_str
     return format_elapsed_time(0) unless started_at
 

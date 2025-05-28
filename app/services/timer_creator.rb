@@ -8,7 +8,6 @@
 #
 # Example:
 #   TimerCreator.new(user: current_user, duration_seconds: 1500).call
-
 class TimerCreator
   def initialize(user:, duration_seconds:, title: nil)
     @user = user
