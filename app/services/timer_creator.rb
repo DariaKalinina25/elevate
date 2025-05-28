@@ -4,9 +4,11 @@
 # Finishes an expired active timer (if any),
 # checks that no other active timers remain,
 # then creates a new timer with the given duration inside a transaction.
+# Automatically sets `stopped_at` by adding the duration to `started_at`.
 #
 # Example:
 #   TimerCreator.new(user: current_user, duration_seconds: 1500).call
+
 class TimerCreator
   def initialize(user:, duration_seconds:, title: nil)
     @user = user
