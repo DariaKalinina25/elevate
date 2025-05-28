@@ -35,6 +35,7 @@ RSpec.configure do |config|
   config.include TestHelpers
   config.include I18nTestHelpers
   config.include SystemHelpers, type: :system
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Warden test mode for sessions
   %i[request system].each do |type|
