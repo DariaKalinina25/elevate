@@ -4,15 +4,25 @@ FROM ruby:$RUBY_VERSION-slim
 
 WORKDIR /app
 
+# Установка зависимостей, включая libyaml-dev для сборки psych
 RUN apt-get update -qq && \
-    apt-get install -y --no-install-recommends build-essential libpq-dev curl postgresql-client git && \
+    apt-get install -y --no-install-recommends \
+      build-essential \
+      libpq-dev \
+      curl \
+      git \
+      postgresql-client \
+      libyaml-dev && \
     rm -rf /var/lib/apt/lists/*
 
+# Установка гемов
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+# Копирование проекта
 COPY . .
 
 EXPOSE 3000
 
+# Запуск Rails-сервера
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]
