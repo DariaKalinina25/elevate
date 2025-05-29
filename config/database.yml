@@ -24,3 +24,6 @@ production:
 
   cache:
     <<: *production
+
+  cable:
+    <<: *production
