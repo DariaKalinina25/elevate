@@ -8,11 +8,12 @@ default: &default
 development:
   <<: *default
   database: elevate_development
+  host: db
 
 test:
   <<: *default
   database: elevate_test<%= ENV['TEST_ENV_NUMBER'] %>
-  host: localhost
+  host: db
 
 production:
   primary: &production
