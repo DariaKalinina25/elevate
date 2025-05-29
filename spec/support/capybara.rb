@@ -7,7 +7,8 @@ Capybara.register_driver :cuprite do |app|
     app,
     headless: true,
     window_size: [1200, 800],
-    timeout: 10
+    timeout: 30,
+    process_timeout: 30
   )
 end
 
