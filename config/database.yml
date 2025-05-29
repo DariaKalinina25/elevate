@@ -15,5 +15,9 @@ test:
   host: localhost
 
 production:
-  <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  primary: &production
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+
+  queue:
+    <<: *production
