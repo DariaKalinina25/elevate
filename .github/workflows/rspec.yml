@@ -28,6 +28,7 @@ jobs:
       RAILS_ENV: test
       ELEVATE_DATABASE_USER: postgres
       ELEVATE_DATABASE_PASSWORD: postgres
+      ELEVATE_DATABASE_HOST: localhost
 
     steps:
       - name: Checkout code
