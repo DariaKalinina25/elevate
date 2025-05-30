@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1
+ARG RUBY_VERSION=3.4.2
+FROM ruby:$RUBY_VERSION-slim
+
+WORKDIR /app
+
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+      build-essential \
+      libpq-dev \
+      curl \
+      git \
+      postgresql-client \
+      libyaml-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY . .
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
+
+EXPOSE 3000
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
