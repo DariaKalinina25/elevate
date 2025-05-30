@@ -1,19 +1,18 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV["ELEVATE_DATABASE_USER"] %>
-  password: <%= ENV["ELEVATE_DATABASE_PASSWORD"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  username: postgres
+  password: password
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
 
 development:
   <<: *default
   database: elevate_development
-  host: db
 
 test:
   <<: *default
   database: elevate_test<%= ENV['TEST_ENV_NUMBER'] %>
-  host: db
 
 production:
   primary: &production
