@@ -16,6 +16,8 @@ services:
     environment:
       RAILS_ENV: development
       DATABASE_HOST: db
+      ELEVATE_DATABASE_USER: postgres
+      ELEVATE_DATABASE_PASSWORD: password
     depends_on:
       - db
     volumes:
