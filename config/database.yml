@@ -2,9 +2,9 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
-  username: postgres
-  password: password
-  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  username: <%= ENV.fetch("ELEVATE_DATABASE_USER", "postgres") %>
+  password: <%= ENV.fetch("ELEVATE_DATABASE_PASSWORD", "password") %>
+  host: <%= ENV.fetch("ELEVATE_DATABASE_HOST", ENV.fetch("DATABASE_HOST", "localhost")) %>
 
 development:
   <<: *default
@@ -13,9 +13,6 @@ development:
 test:
   <<: *default
   database: elevate_test<%= ENV['TEST_ENV_NUMBER'] %>
-  username: <%= ENV["ELEVATE_DATABASE_USER"] || "postgres" %>
-  password: <%= ENV["ELEVATE_DATABASE_PASSWORD"] || "postgres" %>
-  host: <%= ENV["ELEVATE_DATABASE_HOST"] || "localhost" %>
 
 production:
   primary: &production
@@ -30,3 +27,4 @@ production:
 
   cable:
     <<: *production
+
